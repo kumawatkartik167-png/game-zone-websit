@@ -3,40 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Game Zone</title>
+<title>Game Zone 🎮</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial,sans-serif;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  background:#0b1020;
+  font-family:Arial,sans-serif;
+  background:#050b20;
   color:white;
-  text-align:center;
+  overflow-x:hidden;
 }
 
 header{
-  padding:25px 15px;
-  background:#151d35;
+  padding:18px 5%;
+  background:#071126;
+  border-bottom:1px solid #00d9ff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:15px;
 }
 
-header h1{
-  font-size:36px;
+.logo{
+  font-size:28px;
+  font-weight:bold;
+  color:#00eaff;
+  text-shadow:0 0 15px #00eaff;
 }
 
-header p{
-  margin-top:8px;
-  color:#b9c2d9;
+nav a{
+  color:white;
+  text-decoration:none;
+  margin:0 10px;
+  font-weight:bold;
 }
 
-.container{
-  max-width:1000px;
-  margin:auto;
-  padding:30px 15px;
+.hero{
+  min-height:350px;
+  padding:45px 20px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 15% 50%,#0066ff55,transparent 30%),
+    radial-gradient(circle at 85% 50%,#ff00cc55,transparent 30%),
+    linear-gradient(135deg,#06112d,#111b42);
+  border-bottom:2px solid #00d9ff;
+}
+
+.hero:before{
+  content:"";
+  position:absolute;
+  width:260px;
+  height:260px;
+  border:3px solid #00eaff;
+  border-radius:50%;
+  animation:spin 6s linear infinite;
+  box-shadow:0 0 30px #00eaff;
+}
+
+@keyframes spin{
+  from{transform:rotate(0deg) scale(.8)}
+  to{transform:rotate(360deg) scale(1.15)}
+}
+
+.hero h1{
+  position:relative;
+  font-size:55px;
+  text-shadow:0 0 20px #00eaff;
+}
+
+.hero p{
+  position:relative;
+  font-size:19px;
+  margin:12px;
+}
+
+.hero button{
+  position:relative;
+  padding:15px 30px;
+  border:0;
+  border-radius:30px;
+  background:#ffc400;
+  font-size:19px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 0 25px #ffc400;
+}
+
+section{
+  padding:35px 4%;
+}
+
+section h2{
+  font-size:30px;
+  margin-bottom:25px;
 }
 
 .games{
@@ -46,58 +113,130 @@ header p{
 }
 
 .card{
-  background:#151d35;
-  border:1px solid #293452;
+  background:#111b38;
+  border:1px solid #174b91;
   border-radius:18px;
-  padding:25px 15px;
+  padding:20px;
+  text-align:center;
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-7px);
+  box-shadow:0 0 25px #008cff88;
 }
 
 .icon{
   font-size:55px;
-  margin-bottom:15px;
-}
-
-.card h2{
   margin-bottom:10px;
 }
 
-.card p{
-  color:#aeb7cc;
-  margin-bottom:18px;
+.card h3{
+  font-size:22px;
+  margin:8px;
 }
 
-button{
-  border:none;
-  padding:12px 25px;
-  border-radius:10px;
-  background:#4f7cff;
+.card p{
+  color:#b9c5dd;
+  min-height:45px;
+}
+
+.play{
+  border:0;
+  padding:11px 22px;
+  border-radius:25px;
   color:white;
-  font-size:16px;
+  font-weight:bold;
+  background:#087cff;
+  cursor:pointer;
+  margin-top:12px;
+}
+
+.gameArea{
+  display:none;
+  margin:30px auto;
+  max-width:650px;
+  background:#0b1530;
+  border:2px solid #00d9ff;
+  border-radius:20px;
+  padding:20px;
+  text-align:center;
+}
+
+.gameArea.active{display:block}
+
+.close{
+  float:right;
+  background:#ff334f;
+  color:white;
+  border:0;
+  padding:7px 13px;
+  border-radius:10px;
   cursor:pointer;
 }
 
-button:hover{
-  opacity:.85;
+/* CAR GAME */
+#raceCanvas,#chaseCanvas{
+  width:100%;
+  max-width:400px;
+  height:500px;
+  background:#222;
+  border:2px solid #00eaff;
+  margin:20px auto;
+  display:block;
 }
 
-#gameArea{
-  display:none;
-  margin-top:30px;
-  background:#151d35;
-  padding:25px;
-  border-radius:18px;
+.controls{
+  display:flex;
+  justify-content:center;
+  gap:15px;
 }
 
-#score{
+.controls button{
+  font-size:25px;
+  padding:12px 25px;
+  border:0;
+  border-radius:12px;
+  cursor:pointer;
+}
+
+/* SHOOTING */
+.targetBox{
+  height:420px;
+  position:relative;
+  margin:20px auto;
+  max-width:500px;
+  background:
+    linear-gradient(#13234a,#071027);
+  border:2px solid #00eaff;
+  overflow:hidden;
+  border-radius:15px;
+}
+
+.target{
+  position:absolute;
+  font-size:55px;
+  cursor:pointer;
+  user-select:none;
+}
+
+.score{
   font-size:22px;
-  margin:15px;
+  margin:10px;
+  color:#00eaff;
 }
 
 footer{
-  margin-top:40px;
-  padding:20px;
-  background:#151d35;
-  color:#9da7bd;
+  text-align:center;
+  padding:25px;
+  background:#0d1732;
+  margin-top:30px;
+  color:#b8c2d8;
+}
+
+@media(max-width:600px){
+  .hero h1{font-size:40px}
+  nav{width:100%;text-align:center}
 }
 </style>
 </head>
@@ -105,107 +244,378 @@ footer{
 <body>
 
 <header>
-  <h1>🎮 GAME ZONE</h1>
-  <p>Play Fun Games Online</p>
+  <div class="logo">🎮 GAME ZONE</div>
+  <nav>
+    <a href="#home">🏠 Home</a>
+    <a href="#games">🎮 Games</a>
+    <a href="#about">ℹ️ About</a>
+  </nav>
 </header>
 
-<div class="container">
+<section class="hero" id="home">
+  <h1>GAME ZONE</h1>
+  <p>🚗 Race • 🚓 Chase • 🎯 Shoot • 🎮 Have Fun</p>
+  <button onclick="document.getElementById('games').scrollIntoView()">🎮 Start Playing</button>
+</section>
 
-  <h2 style="margin-bottom:25px;">🔥 Choose Your Game</h2>
+<section id="games">
+<h2>🔥 Choose Your Game</h2>
 
-  <div class="games">
+<div class="games">
 
-    <div class="card">
-      <div class="icon">🎯</div>
-      <h2>Click Challenge</h2>
-      <p>Click the button as many times as possible!</p>
-      <button onclick="startClickGame()">Play Now</button>
-    </div>
-
-    <div class="card">
-      <div class="icon">🎲</div>
-      <h2>Dice Game</h2>
-      <p>Roll the dice and test your luck.</p>
-      <button onclick="rollDice()">Roll Dice</button>
-    </div>
-
-    <div class="card">
-      <div class="icon">🧠</div>
-      <h2>Number Guess</h2>
-      <p>Guess the secret number between 1 and 10.</p>
-      <button onclick="guessNumber()">Play Now</button>
-    </div>
-
-  </div>
-
-  <div id="gameArea">
-    <h2 id="gameTitle"></h2>
-    <div id="gameContent"></div>
-  </div>
-
+<div class="card">
+  <div class="icon">🚗</div>
+  <h3>Car Racing</h3>
+  <p>Drive your car and avoid the traffic!</p>
+  <button class="play" onclick="openGame('race')">▶ Play Now</button>
 </div>
 
-<footer>
-  © 2026 Game Zone | Made with ❤️
+<div class="card">
+  <div class="icon">🚓</div>
+  <h3>Police Chase</h3>
+  <p>Escape the police and survive!</p>
+  <button class="play" onclick="openGame('chase')">▶ Play Now</button>
+</div>
+
+<div class="card">
+  <div class="icon">🎯</div>
+  <h3>Cartoon Target Shooting</h3>
+  <p>Hit the moving targets and score points!</p>
+  <button class="play" onclick="openGame('shoot')">▶ Play Now</button>
+</div>
+
+<div class="card">
+  <div class="icon">🎯</div>
+  <h3>Click Challenge</h3>
+  <p>Click as many times as possible!</p>
+  <button class="play" onclick="clickGame()">▶ Play Now</button>
+</div>
+
+<div class="card">
+  <div class="icon">🎲</div>
+  <h3>Dice Game</h3>
+  <p>Roll the dice and test your luck.</p>
+  <button class="play" onclick="diceGame()">🎲 Roll Dice</button>
+</div>
+
+<div class="card">
+  <div class="icon">🧠</div>
+  <h3>Number Guess</h3>
+  <p>Guess the secret number from 1 to 10.</p>
+  <button class="play" onclick="guessGame()">▶ Play Now</button>
+</div>
+
+</div>
+</section>
+
+<!-- CAR RACING -->
+<div class="gameArea" id="race">
+<button class="close" onclick="closeGames()">✖</button>
+<h2>🚗 Car Racing</h2>
+<div class="score">Score: <span id="raceScore">0</span></div>
+<canvas id="raceCanvas" width="400" height="500"></canvas>
+<div class="controls">
+<button onclick="moveCar(-1)">⬅️</button>
+<button onclick="startRace()">▶️</button>
+<button onclick="moveCar(1)">➡️</button>
+</div>
+<p>Keyboard: ← → भी इस्तेमाल कर सकते हो</p>
+</div>
+
+<!-- POLICE CHASE -->
+<div class="gameArea" id="chase">
+<button class="close" onclick="closeGames()">✖</button>
+<h2>🚓 Police Chase</h2>
+<div class="score">Score: <span id="chaseScore">0</span></div>
+<canvas id="chaseCanvas" width="400" height="500"></canvas>
+<div class="controls">
+<button onclick="moveChase(-1)">⬅️</button>
+<button onclick="startChase()">▶️</button>
+<button onclick="moveChase(1)">➡️</button>
+</div>
+<p>Police से बचो और ज्यादा से ज्यादा score बनाओ!</p>
+</div>
+
+<!-- SHOOTING -->
+<div class="gameArea" id="shoot">
+<button class="close" onclick="closeGames()">✖</button>
+<h2>🎯 Cartoon Target Shooting</h2>
+<div class="score">Score: <span id="shootScore">0</span></div>
+<div class="targetBox" id="targetBox"></div>
+<button class="play" onclick="startShooting()">🎯 Start Game</button>
+</div>
+
+<footer id="about">
+🎮 Game Zone | Play • Enjoy • Be Champion ❤️
 </footer>
 
 <script>
 
-let score = 0;
-
-function startClickGame(){
-
-  score = 0;
-
-  document.getElementById("gameArea").style.display="block";
-
-  document.getElementById("gameTitle").innerText="🎯 Click Challenge";
-
-  document.getElementById("gameContent").innerHTML=`
-    <p id="score">Score: 0</p>
-    <button onclick="clickScore()">CLICK ME!</button>
-  `;
+/* GENERAL */
+function closeGames(){
+  document.querySelectorAll('.gameArea').forEach(x=>x.classList.remove('active'));
 }
 
-function clickScore(){
-
-  score++;
-
-  document.getElementById("score").innerText="Score: "+score;
+function openGame(id){
+  closeGames();
+  document.getElementById(id).classList.add('active');
+  document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
 
-function rollDice(){
+/* CLICK GAME */
+let clicks=0;
 
-  let number=Math.floor(Math.random()*6)+1;
+function clickGame(){
+  clicks=0;
+  let go=confirm("🔥 Click Challenge शुरू करें?\nOK दबाकर 10 seconds में जितना हो सके क्लिक करो!");
+  if(!go)return;
 
-  document.getElementById("gameArea").style.display="block";
+  let start=Date.now();
 
-  document.getElementById("gameTitle").innerText="🎲 Dice Game";
-
-  document.getElementById("gameContent").innerHTML=`
-    <div style="font-size:70px;margin:20px;">🎲</div>
-    <h2>You rolled: ${number}</h2>
-    <br>
-    <button onclick="rollDice()">Roll Again</button>
-  `;
-}
-
-function guessNumber(){
-
-  let secret=Math.floor(Math.random()*10)+1;
-
-  let answer=prompt("Guess a number between 1 and 10:");
-
-  if(answer==secret){
-
-    alert("🎉 Correct! You won!");
-
-  }else{
-
-    alert("❌ Wrong! The number was "+secret);
-
+  function clicker(){
+    if(Date.now()-start<10000){
+      clicks++;
+      setTimeout(clicker,0);
+    }else{
+      alert("🔥 Time Up!\nYour Score: "+clicks);
+    }
   }
 
+  clicker();
+}
+
+/* DICE */
+function diceGame(){
+  let n=Math.floor(Math.random()*6)+1;
+  alert("🎲 Dice Result: "+n);
+}
+
+/* NUMBER GUESS */
+function guessGame(){
+  let secret=Math.floor(Math.random()*10)+1;
+  let guess=prompt("🧠 1 से 10 के बीच number guess करो:");
+
+  if(Number(guess)===secret)
+    alert("🎉 बिल्कुल सही! Number था "+secret);
+  else
+    alert("❌ गलत!\nसही number था: "+secret);
+}
+
+
+/* CAR RACING */
+const raceCanvas=document.getElementById("raceCanvas");
+const rc=raceCanvas.getContext("2d");
+
+let carX=175;
+let raceScore=0;
+let raceRunning=false;
+let enemies=[];
+
+function drawRace(){
+  rc.fillStyle="#202020";
+  rc.fillRect(0,0,400,500);
+
+  rc.fillStyle="#555";
+  rc.fillRect(60,0,280,500);
+
+  rc.strokeStyle="white";
+  rc.setLineDash([25,25]);
+  rc.lineWidth=5;
+  rc.beginPath();
+  rc.moveTo(200,0);
+  rc.lineTo(200,500);
+  rc.stroke();
+  rc.setLineDash([]);
+
+  // player car
+  rc.fillStyle="#00eaff";
+  rc.fillRect(carX,420,50,70);
+  rc.fillStyle="#111";
+  rc.fillRect(carX+8,430,34,20);
+
+  enemies.forEach(e=>{
+    rc.fillStyle="#ff334f";
+    rc.fillRect(e.x,e.y,50,70);
+    rc.fillStyle="#111";
+    rc.fillRect(e.x+8,e.y+10,34,20);
+  });
+}
+
+function startRace(){
+  carX=175;
+  raceScore=0;
+  enemies=[];
+  raceRunning=true;
+  raceLoop();
+}
+
+function raceLoop(){
+  if(!raceRunning)return;
+
+  if(Math.random()<0.035){
+    let lanes=[80,175,270];
+    enemies.push({x:lanes[Math.floor(Math.random()*3)],y:-80});
+  }
+
+  enemies.forEach(e=>e.y+=6);
+
+  enemies=enemies.filter(e=>{
+    if(e.y>500){
+      raceScore++;
+      document.getElementById("raceScore").textContent=raceScore;
+      return false;
+    }
+
+    if(e.x<carX+50 &&
+       e.x+50>carX &&
+       e.y<490 &&
+       e.y+70>420){
+      raceRunning=false;
+      alert("💥 Crash!\nRace Score: "+raceScore);
+      return false;
+    }
+
+    return true;
+  });
+
+  drawRace();
+  requestAnimationFrame(raceLoop);
+}
+
+function moveCar(dir){
+  carX+=dir*25;
+  if(carX<70)carX=70;
+  if(carX>280)carX=280;
+  drawRace();
+}
+
+document.addEventListener("keydown",e=>{
+  if(e.key==="ArrowLeft")moveCar(-1);
+  if(e.key==="ArrowRight")moveCar(1);
+});
+
+drawRace();
+
+
+/* POLICE CHASE */
+const chaseCanvas=document.getElementById("chaseCanvas");
+const cc=chaseCanvas.getContext("2d");
+
+let chaseX=175;
+let policeX=100;
+let chaseScore=0;
+let chaseRunning=false;
+
+function drawChase(){
+  cc.fillStyle="#111";
+  cc.fillRect(0,0,400,500);
+
+  cc.fillStyle="#444";
+  cc.fillRect(60,0,280,500);
+
+  cc.strokeStyle="yellow";
+  cc.setLineDash([20,20]);
+  cc.lineWidth=4;
+  cc.beginPath();
+  cc.moveTo(200,0);
+  cc.lineTo(200,500);
+  cc.stroke();
+  cc.setLineDash([]);
+
+  // player
+  cc.fillStyle="#00aaff";
+  cc.fillRect(chaseX,370,50,70);
+
+  // police
+  cc.fillStyle="#222";
+  cc.fillRect(policeX,80,50,70);
+
+  cc.fillStyle="red";
+  cc.fillRect(policeX+5,80,18,12);
+
+  cc.fillStyle="blue";
+  cc.fillRect(policeX+27,80,18,12);
+}
+
+function startChase(){
+  chaseX=175;
+  policeX=100;
+  chaseScore=0;
+  chaseRunning=true;
+  chaseLoop();
+}
+
+function chaseLoop(){
+  if(!chaseRunning)return;
+
+  chaseScore++;
+  document.getElementById("chaseScore").textContent=Math.floor(chaseScore/10);
+
+  if(policeX<chaseX)policeX+=1.1;
+  if(policeX>chaseX)policeX-=1.1;
+
+  if(Math.abs(policeX-chaseX)<35){
+    chaseRunning=false;
+    alert("🚓 Police caught you!\nScore: "+Math.floor(chaseScore/10));
+  }
+
+  drawChase();
+  requestAnimationFrame(chaseLoop);
+}
+
+function moveChase(dir){
+  chaseX+=dir*30;
+  if(chaseX<70)chaseX=70;
+  if(chaseX>280)chaseX=280;
+  drawChase();
+}
+
+
+/* TARGET SHOOTING */
+let shootScore=0;
+let shootTimer;
+
+function startShooting(){
+  shootScore=0;
+  document.getElementById("shootScore").textContent=0;
+
+  let box=document.getElementById("targetBox");
+  box.innerHTML="";
+
+  clearInterval(shootTimer);
+
+  let time=20;
+
+  shootTimer=setInterval(()=>{
+    if(time<=0){
+      clearInterval(shootTimer);
+      box.innerHTML="<h2 style='padding-top:170px'>🎉 GAME OVER!</h2>";
+      alert("🎯 Game Over!\nYour Score: "+shootScore);
+      return;
+    }
+
+    time--;
+
+    let target=document.createElement("div");
+    target.className="target";
+    target.textContent="🎯";
+
+    target.style.left=Math.random()*85+"%";
+    target.style.top=Math.random()*85+"%";
+
+    target.onclick=function(){
+      shootScore++;
+      document.getElementById("shootScore").textContent=shootScore;
+      this.remove();
+    };
+
+    box.appendChild(target);
+
+    setTimeout(()=>{
+      if(target.parentNode)target.remove();
+    },900);
+
+  },700);
 }
 
 </script>
