@@ -2,200 +2,262 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <title>Game Zone 3D</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html,body{
+  width:100%;
+  min-height:100%;
+  background:#050510;
+  color:#fff;
+  font-family:Arial,sans-serif;
+}
 
 body{
-  background:#050510;
-  color:white;
-  font-family:Arial,sans-serif;
   overflow-x:hidden;
 }
 
-header{
-  min-height:230px;
-  padding:45px 20px;
+/* ================= HEADER ================= */
+
+.hero{
+  min-height:270px;
+  padding:45px 18px 35px;
   text-align:center;
   background:
-    radial-gradient(circle at 20% 30%,#00eaff44,transparent 30%),
-    radial-gradient(circle at 80% 70%,#ff00cc44,transparent 30%),
+    radial-gradient(circle at 20% 30%,#00eaff55,transparent 30%),
+    radial-gradient(circle at 80% 70%,#ff00cc55,transparent 30%),
     linear-gradient(135deg,#050510,#15104a,#050510);
 }
 
-header h1{
-  font-size:clamp(38px,8vw,72px);
+.hero h1{
+  font-size:clamp(38px,9vw,72px);
   color:#00eaff;
-  text-shadow:0 0 20px #00eaff,0 0 50px #0066ff;
+  text-shadow:
+    0 0 12px #00eaff,
+    0 0 30px #008cff;
+  margin-bottom:12px;
 }
 
-header p{
-  margin-top:12px;
+.hero p{
   color:#ccc;
   font-size:18px;
 }
 
-.search{
-  width:min(700px,90%);
-  margin:25px auto 0;
+.searchBox{
   display:block;
-  padding:15px 20px;
+  width:min(700px,92%);
+  margin:25px auto 0;
+  padding:16px 20px;
   border-radius:30px;
   border:2px solid #00eaff;
-  background:#050510cc;
-  color:white;
+  background:#050510dd;
+  color:#fff;
   outline:none;
-  font-size:16px;
+  font-size:17px;
 }
+
+.searchBox::placeholder{
+  color:#888;
+}
+
+/* ================= CATEGORIES ================= */
 
 .categories{
+  width:100%;
   display:flex;
-  gap:10px;
-  overflow-x:auto;
-  padding:18px;
   justify-content:center;
+  gap:10px;
+  padding:18px;
+  overflow-x:auto;
+  background:#070711;
 }
 
-.categories button{
-  white-space:nowrap;
+.category{
+  flex:none;
+  padding:11px 18px;
+  border-radius:25px;
   border:1px solid #00eaff;
   background:#101025;
-  color:white;
-  padding:10px 18px;
-  border-radius:20px;
+  color:#fff;
   cursor:pointer;
 }
 
-.container{
-  width:min(1200px,94%);
-  margin:auto;
-  padding:20px 0 60px;
+.category:hover{
+  background:#00eaff22;
 }
 
-.grid{
+/* ================= GAME GRID ================= */
+
+.container{
+  width:min(1250px,94%);
+  margin:auto;
+  padding:30px 0 70px;
+}
+
+.gameGrid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  grid-template-columns:
+    repeat(auto-fit,minmax(230px,1fr));
   gap:20px;
 }
 
-.card{
-  background:linear-gradient(145deg,#11112a,#080817);
-  border:1px solid #25255a;
-  border-radius:20px;
+.gameCard{
+  min-height:245px;
   padding:22px;
-  min-height:220px;
+  border-radius:22px;
+  background:
+    linear-gradient(145deg,#15152f,#080816);
+  border:1px solid #29295c;
   transition:.2s;
 }
 
-.card:hover{
+.gameCard:hover{
   transform:translateY(-5px);
   border-color:#00eaff;
   box-shadow:0 0 25px #00eaff33;
 }
 
-.icon{
+.gameIcon{
   font-size:55px;
+  margin-bottom:10px;
 }
 
-.card h2{
-  margin:10px 0;
+.gameCard h2{
+  font-size:22px;
+  margin-bottom:10px;
 }
 
-.card p{
+.gameCard p{
   color:#aaa;
-  min-height:42px;
+  line-height:1.4;
+  min-height:60px;
 }
 
-.play{
-  margin-top:18px;
+.playBtn{
   width:100%;
+  margin-top:15px;
   padding:13px;
-  border:0;
-  border-radius:12px;
-  background:linear-gradient(90deg,#7b2cff,#00aaff);
+  border:none;
+  border-radius:13px;
+  background:
+    linear-gradient(90deg,#7b2cff,#00aaff);
   color:white;
+  font-size:16px;
   font-weight:bold;
   cursor:pointer;
 }
+
+.playBtn:active{
+  transform:scale(.97);
+}
+
+.noGames{
+  text-align:center;
+  color:#999;
+  padding:50px;
+  font-size:20px;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+  text-align:center;
+  color:#777;
+  padding:30px;
+}
+
+/* ================= GAME SCREEN ================= */
 
 #gameScreen{
   display:none;
   position:fixed;
   inset:0;
-  z-index:50;
+  z-index:100;
   background:#020208;
 }
 
 #gameCanvas{
+  position:absolute;
+  inset:0;
   width:100%;
   height:100%;
   display:block;
 }
 
-#gameHUD{
+#hud{
   position:absolute;
   top:12px;
   left:12px;
   right:12px;
+  z-index:120;
   display:flex;
   justify-content:space-between;
+  gap:8px;
   pointer-events:none;
-  z-index:60;
 }
 
-.hudBox{
+.hud{
   background:#000b;
   border:1px solid #00eaff;
   border-radius:12px;
-  padding:10px 15px;
+  padding:9px 13px;
+  font-weight:bold;
 }
 
-#closeGame{
+#exitBtn{
   position:absolute;
+  top:58px;
   right:12px;
-  top:60px;
-  z-index:70;
-  padding:10px 15px;
-  border:1px solid #ff44cc;
+  z-index:130;
+  padding:10px 16px;
   border-radius:12px;
+  border:1px solid #ff44cc;
   background:#100817;
   color:white;
+  font-weight:bold;
   cursor:pointer;
 }
 
-#gameOver{
-  display:none;
+/* ================= GAME MESSAGE ================= */
+
+#gameMessage{
   position:absolute;
   inset:0;
-  z-index:80;
+  display:none;
   align-items:center;
   justify-content:center;
+  z-index:150;
   background:#0009;
 }
 
-.overBox{
-  width:min(400px,90%);
-  padding:30px;
+.messageBox{
+  width:min(420px,90%);
   text-align:center;
+  padding:30px;
+  border-radius:22px;
   background:#09091d;
   border:2px solid #00eaff;
-  border-radius:22px;
+  box-shadow:0 0 35px #00eaff44;
 }
 
-.overBox h2{
+.messageBox h2{
   color:#00eaff;
   font-size:35px;
   margin-bottom:12px;
 }
 
-.overBox button{
-  margin-top:15px;
+.messageBox button{
   width:100%;
   padding:13px;
+  margin-top:12px;
   border:0;
   border-radius:12px;
   background:#7b2cff;
@@ -203,15 +265,17 @@ header p{
   font-weight:bold;
 }
 
+/* ================= MOBILE CONTROLS ================= */
+
 #mobileControls{
-  display:none;
   position:absolute;
   left:0;
   right:0;
   bottom:20px;
-  z-index:65;
+  display:none;
   justify-content:space-between;
   padding:0 20px;
+  z-index:125;
   pointer-events:none;
 }
 
@@ -220,357 +284,601 @@ header p{
   gap:12px;
 }
 
-.ctrl{
+.control{
   width:65px;
   height:65px;
   border-radius:50%;
   border:2px solid #00eaff;
-  background:#000b;
+  background:#000c;
   color:white;
   font-size:25px;
   pointer-events:auto;
 }
 
-footer{
-  text-align:center;
-  padding:30px;
-  color:#777;
-}
-
 @media(max-width:700px){
-  .categories{justify-content:flex-start}
-  #mobileControls{display:flex}
+
+  .categories{
+    justify-content:flex-start;
+  }
+
+  #mobileControls{
+    display:flex;
+  }
+
+  #hud{
+    font-size:12px;
+  }
+
+  .hud{
+    padding:8px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<header>
+<!-- ================= HOME ================= -->
+
+<section class="hero">
+
   <h1>🎮 GAME ZONE 3D</h1>
-  <p>Play • Challenge • Score • Have Fun</p>
+
+  <p>
+    Play • Challenge • Score • Have Fun
+  </p>
+
   <input
     id="search"
-    class="search"
+    class="searchBox"
+    type="text"
     placeholder="🔎 Search games..."
-    oninput="searchGames()">
-</header>
+  >
+
+</section>
+
+
+<!-- ================= CATEGORIES ================= -->
 
 <div class="categories">
-  <button onclick="filterGames('all')">All</button>
-  <button onclick="filterGames('racing')">🏎️ Racing</button>
-  <button onclick="filterGames('action')">🎯 Action</button>
-  <button onclick="filterGames('arcade')">🕹️ Arcade</button>
-  <button onclick="filterGames('sports')">🏀 Sports</button>
-  <button onclick="filterGames('space')">🚀 Space</button>
+
+  <button class="category" data-category="all">
+    🎮 All
+  </button>
+
+  <button class="category" data-category="racing">
+    🏎️ Racing
+  </button>
+
+  <button class="category" data-category="action">
+    🎯 Action
+  </button>
+
+  <button class="category" data-category="arcade">
+    🕹️ Arcade
+  </button>
+
+  <button class="category" data-category="sports">
+    🏀 Sports
+  </button>
+
+  <button class="category" data-category="space">
+    🚀 Space
+  </button>
+
 </div>
 
+
+<!-- ================= GAMES ================= -->
+
 <main class="container">
-  <div id="gameGrid" class="grid"></div>
+
+  <div id="gameGrid" class="gameGrid"></div>
+
 </main>
+
 
 <footer>
   🎮 Game Zone 3D — Phase 1
 </footer>
 
 
-<!-- GAME SCREEN -->
+<!-- ================= 3D GAME SCREEN ================= -->
 
 <div id="gameScreen">
 
   <canvas id="gameCanvas"></canvas>
 
-  <div id="gameHUD">
-    <div class="hudBox" id="gameTitle">GAME</div>
-    <div class="hudBox">⭐ <span id="score">0</span></div>
-    <div class="hudBox">❤️ <span id="lives">3</span></div>
+  <div id="hud">
+
+    <div class="hud" id="gameName">
+      GAME
+    </div>
+
+    <div class="hud">
+      ⭐ <span id="score">0</span>
+    </div>
+
+    <div class="hud">
+      ❤️ <span id="lives">3</span>
+    </div>
+
   </div>
 
-  <button id="closeGame" onclick="closeGame()">✕ Exit</button>
+
+  <button id="exitBtn">
+    ✕ Exit
+  </button>
+
 
   <div id="mobileControls">
+
     <div class="controlGroup">
-      <button class="ctrl" id="leftBtn">◀</button>
-      <button class="ctrl" id="rightBtn">▶</button>
+
+      <button class="control" id="leftBtn">
+        ◀
+      </button>
+
+      <button class="control" id="rightBtn">
+        ▶
+      </button>
+
     </div>
+
     <div class="controlGroup">
-      <button class="ctrl" id="actionBtn">🔥</button>
+
+      <button class="control" id="actionBtn">
+        🔥
+      </button>
+
     </div>
+
   </div>
 
-  <div id="gameOver">
-    <div class="overBox">
-      <h2>GAME OVER</h2>
-      <p>Score: <b id="finalScore">0</b></p>
-      <button onclick="restartGame()">🔄 Play Again</button>
-      <button onclick="closeGame()">🏠 Main Menu</button>
+
+  <div id="gameMessage">
+
+    <div class="messageBox">
+
+      <h2 id="messageTitle">
+        GAME OVER
+      </h2>
+
+      <p>
+        Score:
+        <b id="finalScore">0</b>
+      </p>
+
+      <button id="againBtn">
+        🔄 Play Again
+      </button>
+
+      <button id="menuBtn">
+        🏠 Main Menu
+      </button>
+
     </div>
+
   </div>
 
 </div>
 
 
-<!-- THREE.JS -->
+<!-- ================= THREE.JS ================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 
 
 <script>
 
-/* =====================================
+/* =====================================================
    GAME DATABASE
-===================================== */
+===================================================== */
 
-const games=[
+const GAMES = [
 
-{
- id:"race",
- title:"3D Car Racing",
- icon:"🏎️",
- category:"racing",
- desc:"Drive your car, avoid traffic and increase your score."
-},
+  {
+    id:"race",
+    title:"3D Car Racing",
+    icon:"🏎️",
+    category:"racing",
+    description:
+      "Drive your 3D car, avoid traffic and increase your score."
+  },
 
-{
- id:"police",
- title:"3D Police Chase",
- icon:"🚔",
- category:"racing",
- desc:"Escape the cartoon police car and survive the chase."
-},
+  {
+    id:"police",
+    title:"3D Police Chase",
+    icon:"🚔",
+    category:"racing",
+    description:
+      "Escape the cartoon police car and survive the chase."
+  },
 
-{
- id:"blaster",
- title:"Cartoon Blaster",
- icon:"🎯",
- category:"action",
- desc:"Hit moving cartoon targets with colorful energy shots."
-},
+  {
+    id:"blaster",
+    title:"Cartoon Blaster",
+    icon:"🎯",
+    category:"action",
+    description:
+      "Hit colorful cartoon targets with energy shots."
+  },
 
-{
- id:"space",
- title:"3D Space Shooter",
- icon:"🚀",
- category:"space",
- desc:"Fly through space and destroy fictional space targets."
-},
+  {
+    id:"space",
+    title:"3D Space Shooter",
+    icon:"🚀",
+    category:"space",
+    description:
+      "Fly through space and dodge fictional space objects."
+  },
 
-{
- id:"planet",
- title:"Planet Runner",
- icon:"🪐",
- category:"arcade",
- desc:"Run around a colorful 3D planet and collect stars."
-},
+  {
+    id:"planet",
+    title:"Planet Runner",
+    icon:"🪐",
+    category:"arcade",
+    description:
+      "Run through a colorful 3D world and collect points."
+  },
 
-{
- id:"hoops",
- title:"3D Hoops",
- icon:"🏀",
- category:"sports",
- desc:"Shoot the ball toward the hoop and score points."
-},
+  {
+    id:"hoops",
+    title:"3D Hoops",
+    icon:"🏀",
+    category:"sports",
+    description:
+      "Move your player and try to score points."
+  },
 
-{
- id:"blocks",
- title:"Block Smash",
- icon:"🧱",
- category:"arcade",
- desc:"Smash colorful blocks and build your high score."
-},
+  {
+    id:"blocks",
+    title:"Block Smash",
+    icon:"🧱",
+    category:"arcade",
+    description:
+      "Break colorful blocks and build your score."
+  },
 
-{
- id:"ufo",
- title:"UFO Dodge",
- icon:"🛸",
- category:"arcade",
- desc:"Dodge incoming UFOs and survive as long as possible."
-},
+  {
+    id:"ufo",
+    title:"UFO Dodge",
+    icon:"🛸",
+    category:"arcade",
+    description:
+      "Dodge incoming UFO objects and survive."
+  },
 
-{
- id:"target",
- title:"Target Rush",
- icon:"🎯",
- category:"action",
- desc:"Hit targets quickly before time runs out."
-},
+  {
+    id:"target",
+    title:"Target Rush",
+    icon:"🎯",
+    category:"action",
+    description:
+      "Hit targets quickly and make the highest score."
+  },
 
-{
- id:"reaction",
- title:"Reaction Challenge",
- icon:"⚡",
- category:"arcade",
- desc:"Test your reaction speed and beat your best score."
-}
+  {
+    id:"reaction",
+    title:"Reaction Challenge",
+    icon:"⚡",
+    category:"arcade",
+    description:
+      "Move quickly and test your reaction speed."
+  }
 
 ];
 
 
-/* =====================================
-   GAME LIST
-===================================== */
+/* =====================================================
+   ELEMENTS
+===================================================== */
 
-const grid=document.getElementById("gameGrid");
+const gameGrid =
+  document.getElementById("gameGrid");
 
-function renderGames(list=games){
+const search =
+  document.getElementById("search");
 
-  grid.innerHTML="";
+const gameScreen =
+  document.getElementById("gameScreen");
 
-  list.forEach(g=>{
+const canvas =
+  document.getElementById("gameCanvas");
 
-    const card=document.createElement("div");
+const scoreElement =
+  document.getElementById("score");
 
-    card.className="card";
+const livesElement =
+  document.getElementById("lives");
 
-    card.innerHTML=`
-      <div class="icon">${g.icon}</div>
-      <h2>${g.title}</h2>
-      <p>${g.desc}</p>
-      <button class="play"
-        onclick="startGame('${g.id}')">
-        ▶ PLAY NOW
-      </button>
-    `;
+const gameNameElement =
+  document.getElementById("gameName");
 
-    grid.appendChild(card);
-  });
-}
+const gameMessage =
+  document.getElementById("gameMessage");
 
-renderGames();
+const finalScore =
+  document.getElementById("finalScore");
+
+const messageTitle =
+  document.getElementById("messageTitle");
 
 
-function filterGames(cat){
+/* =====================================================
+   RENDER GAMES
+===================================================== */
 
-  if(cat==="all"){
-    renderGames(games);
+function renderGames(list){
+
+  gameGrid.innerHTML="";
+
+  if(!list.length){
+
+    gameGrid.innerHTML=
+      '<div class="noGames">😔 No games found</div>';
+
     return;
   }
 
-  renderGames(
-    games.filter(g=>g.category===cat)
-  );
+  list.forEach(function(game){
+
+    const card =
+      document.createElement("div");
+
+    card.className="gameCard";
+
+    card.innerHTML=`
+
+      <div class="gameIcon">
+        ${game.icon}
+      </div>
+
+      <h2>
+        ${game.title}
+      </h2>
+
+      <p>
+        ${game.description}
+      </p>
+
+      <button
+        class="playBtn"
+        data-game="${game.id}">
+        ▶ PLAY NOW
+      </button>
+
+    `;
+
+    gameGrid.appendChild(card);
+  });
+
 }
 
 
-function searchGames(){
+/* =====================================================
+   INITIAL GAME LIST
+===================================================== */
 
-  const q=
-    document.getElementById("search")
-    .value.toLowerCase();
-
-  renderGames(
-    games.filter(g=>
-      g.title.toLowerCase().includes(q) ||
-      g.category.toLowerCase().includes(q)
-    )
-  );
-}
+renderGames(GAMES);
 
 
-/* =====================================
-   THREE.JS CORE
-===================================== */
+/* =====================================================
+   PLAY BUTTON
+===================================================== */
 
-let scene;
-let camera;
-let renderer;
-let clock;
+gameGrid.addEventListener(
+  "click",
+  function(event){
 
-let currentGame=null;
-let running=false;
+    const button =
+      event.target.closest(".playBtn");
 
-let player;
-let objects=[];
-let bullets=[];
+    if(!button) return;
 
-let score=0;
-let lives=3;
-
-let keys={};
-
-const screen=
-  document.getElementById("gameScreen");
-
-const canvas=
-  document.getElementById("gameCanvas");
+    startGame(button.dataset.game);
+  }
+);
 
 
-/* =====================================
-   INITIALIZE
-===================================== */
+/* =====================================================
+   SEARCH
+===================================================== */
+
+search.addEventListener(
+  "input",
+  function(){
+
+    const query =
+      search.value
+        .trim()
+        .toLowerCase();
+
+    const filtered =
+      GAMES.filter(function(game){
+
+        return (
+          game.title.toLowerCase().includes(query) ||
+          game.category.toLowerCase().includes(query) ||
+          game.description.toLowerCase().includes(query)
+        );
+
+      });
+
+    renderGames(filtered);
+
+  }
+);
+
+
+/* =====================================================
+   CATEGORY
+===================================================== */
+
+document
+  .querySelectorAll(".category")
+  .forEach(function(button){
+
+    button.addEventListener(
+      "click",
+      function(){
+
+        const category =
+          button.dataset.category;
+
+        if(category==="all"){
+
+          renderGames(GAMES);
+
+          return;
+        }
+
+        renderGames(
+          GAMES.filter(function(game){
+            return game.category===category;
+          })
+        );
+
+      }
+    );
+
+  });
+
+
+/* =====================================================
+   THREE.JS VARIABLES
+===================================================== */
+
+let scene = null;
+let camera = null;
+let renderer = null;
+let clock = null;
+
+let currentGame = null;
+let running = false;
+
+let player = null;
+
+let gameObjects = [];
+let bullets = [];
+
+let score = 0;
+let lives = 3;
+
+let keys = {};
+
+
+/* =====================================================
+   INITIALIZE 3D
+===================================================== */
 
 function init3D(){
 
   if(renderer) return;
 
-  scene=new THREE.Scene();
+  if(typeof THREE === "undefined"){
 
-  scene.background=
+    alert(
+      "3D engine load nahi hua. Internet connection check karo."
+    );
+
+    return;
+  }
+
+
+  scene =
+    new THREE.Scene();
+
+
+  scene.background =
     new THREE.Color(0x050515);
 
-  camera=
+
+  camera =
     new THREE.PerspectiveCamera(
       65,
-      innerWidth/innerHeight,
-      .1,
+      window.innerWidth /
+      window.innerHeight,
+      0.1,
       1000
     );
 
-  camera.position.set(0,6,12);
 
-  renderer=
+  camera.position.set(
+    0,
+    6,
+    12
+  );
+
+
+  renderer =
     new THREE.WebGLRenderer({
       canvas:canvas,
       antialias:true
     });
 
+
   renderer.setSize(
-    innerWidth,
-    innerHeight
+    window.innerWidth,
+    window.innerHeight
   );
+
 
   renderer.setPixelRatio(
-    Math.min(devicePixelRatio,2)
+    Math.min(window.devicePixelRatio,2)
   );
 
-  renderer.shadowMap.enabled=true;
 
-  clock=new THREE.Clock();
-
-  const ambient=
+  const ambient =
     new THREE.AmbientLight(
       0xffffff,
-      .75
+      0.8
     );
 
   scene.add(ambient);
 
-  const sun=
+
+  const light =
     new THREE.DirectionalLight(
       0xffffff,
       1.4
     );
 
-  sun.position.set(10,15,10);
+  light.position.set(
+    10,
+    15,
+    10
+  );
 
-  scene.add(sun);
+  scene.add(light);
+
+
+  clock =
+    new THREE.Clock();
+
 
   window.addEventListener(
     "resize",
-    resize3D
+    resizeGame
   );
 
-  animate();
+
+  requestAnimationFrame(
+    gameLoop
+  );
 }
 
 
-/* =====================================
+/* =====================================================
    START GAME
-===================================== */
+===================================================== */
 
 function startGame(id){
 
   init3D();
+
+  if(!renderer) return;
+
 
   currentGame=id;
   running=true;
@@ -578,769 +886,511 @@ function startGame(id){
   score=0;
   lives=3;
 
-  clearScene();
+  clearWorld();
 
-  screen.style.display="block";
 
-  document.getElementById(
-    "gameOver"
-  ).style.display="none";
+  const selected =
+    GAMES.find(
+      function(game){
+        return game.id===id;
+      }
+    );
 
-  const g=
-    games.find(x=>x.id===id);
 
-  document.getElementById(
-    "gameTitle"
-  ).textContent=
-    g ? g.title : "GAME";
+  gameNameElement.textContent =
+    selected ? selected.title : "GAME";
+
+
+  gameScreen.style.display="block";
+
+  gameMessage.style.display="none";
+
 
   updateHUD();
 
-  if(id==="race")
-    setupRace();
 
-  else if(id==="police")
+  if(id==="race"){
+    setupRacing();
+  }
+
+  else if(id==="police"){
     setupPolice();
+  }
 
-  else if(id==="blaster")
+  else if(id==="blaster"){
     setupBlaster();
+  }
 
-  else
+  else{
     setupArcade(id);
+  }
+
 }
 
 
-/* =====================================
-   CLEAR SCENE
-===================================== */
+/* =====================================================
+   CLEAR WORLD
+===================================================== */
 
-function clearScene(){
+function clearWorld(){
 
-  objects=[];
+  gameObjects.forEach(
+    function(object){
+
+      scene.remove(object);
+
+    }
+  );
+
+  bullets.forEach(
+    function(bullet){
+
+      scene.remove(bullet);
+
+    }
+  );
+
+
+  gameObjects=[];
   bullets=[];
+
+
+  if(player){
+
+    scene.remove(player);
+
+    player=null;
+  }
+
+
+  /* Keep lights */
 
   while(scene.children.length>2){
 
-    scene.remove(
+    const object =
       scene.children[
         scene.children.length-1
-      ]
-    );
+      ];
+
+    scene.remove(object);
   }
 
-  player=null;
 }
 
 
-/* =====================================
+/* =====================================================
    ROAD
-===================================== */
+===================================================== */
 
 function createRoad(){
 
-  const ground=
+  const ground =
     new THREE.Mesh(
       new THREE.PlaneGeometry(
-        100,1000
+        100,
+        1000
       ),
       new THREE.MeshStandardMaterial({
         color:0x111111
       })
     );
 
-  ground.rotation.x=-Math.PI/2;
+
+  ground.rotation.x =
+    -Math.PI/2;
+
 
   ground.position.set(
-    0,-.2,-400
+    0,
+    -0.3,
+    -450
   );
+
 
   scene.add(ground);
 
 
-  const road=
+  const road =
     new THREE.Mesh(
       new THREE.PlaneGeometry(
-        12,1000
+        12,
+        1000
       ),
       new THREE.MeshStandardMaterial({
         color:0x292929
       })
     );
 
-  road.rotation.x=-Math.PI/2;
+
+  road.rotation.x =
+    -Math.PI/2;
+
 
   road.position.set(
-    0,-.1,-400
+    0,
+    -0.2,
+    -450
   );
+
 
   scene.add(road);
 
 
-  for(let z=10;z>-1000;z-=8){
+  for(
+    let z=10;
+    z>-1000;
+    z-=8
+  ){
 
-    const line=
+    const line =
       new THREE.Mesh(
         new THREE.BoxGeometry(
-          .15,.03,4
+          .15,
+          .04,
+          4
         ),
         new THREE.MeshStandardMaterial({
           color:0xffffff
         })
       );
 
+
     line.position.set(
-      0,-.08,z
+      0,
+      -0.1,
+      z
     );
+
 
     scene.add(line);
 
-    objects.push(line);
+    gameObjects.push(line);
   }
+
 }
 
 
-/* =====================================
+/* =====================================================
    CAR
-===================================== */
+===================================================== */
 
 function createCar(color){
 
-  const car=
+  const car =
     new THREE.Group();
 
 
-  const body=
+  const body =
     new THREE.Mesh(
       new THREE.BoxGeometry(
-        2,.6,3.8
+        2,
+        .6,
+        3.8
       ),
       new THREE.MeshStandardMaterial({
         color:color
       })
     );
 
+
   body.position.y=.7;
 
   car.add(body);
 
 
-  const cabin=
+  const cabin =
     new THREE.Mesh(
       new THREE.BoxGeometry(
-        1.45,.65,1.7
+        1.45,
+        .65,
+        1.7
       ),
       new THREE.MeshStandardMaterial({
-        color:0x111827
+        color:0x172033
       })
     );
 
+
   cabin.position.set(
-    0,1.25,-.2
+    0,
+    1.25,
+    -.2
   );
+
 
   car.add(cabin);
 
 
-  for(
-    const x of [-1.05,1.05]
-  ){
+  const wheelMaterial =
+    new THREE.MeshStandardMaterial({
+      color:0x050505
+    });
 
-    for(
-      const z of [-1.15,1.15]
-    ){
 
-      const wheel=
-        new THREE.Mesh(
-          new THREE.CylinderGeometry(
-            .38,.38,.25,16
-          ),
-          new THREE.MeshStandardMaterial({
-            color:0x050505
-          })
-        );
+  [-1.05,1.05].forEach(
+    function(x){
 
-      wheel.rotation.z=
-        Math.PI/2;
+      [-1.15,1.15].forEach(
+        function(z){
 
-      wheel.position.set(
-        x,.4,z
+          const wheel =
+            new THREE.Mesh(
+              new THREE.CylinderGeometry(
+                .38,
+                .38,
+                .25,
+                16
+              ),
+              wheelMaterial
+            );
+
+
+          wheel.rotation.z =
+            Math.PI/2;
+
+
+          wheel.position.set(
+            x,
+            .4,
+            z
+          );
+
+
+          car.add(wheel);
+
+        }
       );
 
-      car.add(wheel);
     }
-  }
+  );
+
 
   return car;
 }
 
 
-/* =====================================
-   RACING
-===================================== */
+/* =====================================================
+   RACING SETUP
+===================================================== */
 
-function setupRace(){
+function setupRacing(){
 
   createRoad();
 
-  player=
+
+  player =
     createCar(0x00eaff);
 
+
   player.position.set(
-    0,0,5
+    0,
+    0,
+    5
   );
+
 
   scene.add(player);
 
 
-  for(let i=0;i<5;i++){
+  for(
+    let i=0;
+    i<5;
+    i++
+  ){
 
-    const enemy=
+    const enemy =
       createCar(
-        [0xff3333,
-         0xffff00,
-         0xff00ff,
-         0x44ff44]
-        [Math.floor(Math.random()*4)]
+        [
+          0xff3333,
+          0xffff00,
+          0xff00ff,
+          0x44ff44
+        ][
+          Math.floor(
+            Math.random()*4
+          )
+        ]
       );
+
 
     enemy.position.set(
       [-4,0,4][
-        Math.floor(Math.random()*3)
+        Math.floor(
+          Math.random()*3
+        )
       ],
       0,
       -30-i*35
     );
 
+
+    enemy.userData.type="enemy";
+
+
     scene.add(enemy);
 
-    objects.push(enemy);
+    gameObjects.push(enemy);
   }
 
+
   camera.position.set(
-    0,5.5,11
+    0,
+    5.5,
+    11
   );
+
 }
 
 
-/* =====================================
-   POLICE CHASE
-===================================== */
+/* =====================================================
+   POLICE SETUP
+===================================================== */
 
 function setupPolice(){
 
   createRoad();
 
-  player=
-    createCar(0x00aaff);
+
+  player =
+    createCar(0x0088ff);
+
 
   player.position.set(
-    0,0,3
+    0,
+    0,
+    3
   );
+
 
   scene.add(player);
 
 
-  const police=
+  const police =
     createCar(0xffffff);
 
+
   police.position.set(
-    0,0,15
+    0,
+    0,
+    16
   );
 
-  police.userData.police=true;
+
+  police.userData.type="police";
+
 
   scene.add(police);
 
-  objects.push(police);
+  gameObjects.push(police);
+
 
   camera.position.set(
-    0,5.5,11
+    0,
+    5.5,
+    11
   );
+
 }
 
 
-/* =====================================
-   BLASTER
-===================================== */
+/* =====================================================
+   BLASTER SETUP
+===================================================== */
 
 function setupBlaster(){
 
-  const floor=
+  const floor =
     new THREE.Mesh(
       new THREE.BoxGeometry(
-        35,.5,35
+        35,
+        .5,
+        35
       ),
       new THREE.MeshStandardMaterial({
-        color:0x211c45
+        color:0x241c4d
       })
     );
+
 
   floor.position.y=-.3;
 
   scene.add(floor);
 
 
-  player=
+  player =
     new THREE.Mesh(
       new THREE.CylinderGeometry(
-        1,1,2,20
+        1,
+        1,
+        2,
+        20
       ),
       new THREE.MeshStandardMaterial({
         color:0x00eaff
       })
     );
 
+
   player.position.set(
-    0,1,7
+    0,
+    1,
+    7
   );
+
 
   scene.add(player);
-
-
-  for(let i=0;i<7;i++)
-    spawnTarget();
-
-
-  camera.position.set(
-    0,7,14
-  );
-}
-
-
-/* =====================================
-   TARGET
-===================================== */
-
-function spawnTarget(){
-
-  const target=
-    new THREE.Group();
-
-
-  const body=
-    new THREE.Mesh(
-      new THREE.SphereGeometry(
-        1,20,20
-      ),
-      new THREE.MeshStandardMaterial({
-        color:
-          [0xff3366,
-           0xffff00,
-           0x00ff99,
-           0xff8800,
-           0xaa44ff]
-          [Math.floor(Math.random()*5)]
-      })
-    );
-
-  target.add(body);
-
-
-  const eyeMat=
-    new THREE.MeshStandardMaterial({
-      color:0xffffff
-    });
 
 
   for(
-    const x of [-.35,.35]
+    let i=0;
+    i<7;
+    i++
   ){
 
-    const eye=
-      new THREE.Mesh(
-        new THREE.SphereGeometry(
-          .16,10,10
-        ),
-        eyeMat
-      );
+    spawnTarget();
 
-    eye.position.set(
-      x,.25,.9
-    );
-
-    target.add(eye);
   }
 
 
-  target.position.set(
-    THREE.MathUtils.randFloat(-8,8),
-    THREE.MathUtils.randFloat(1,6),
-    THREE.MathUtils.randFloat(-12,1)
+  camera.position.set(
+    0,
+    7,
+    14
   );
 
-  scene.add(target);
-
-  objects.push(target);
 }
 
 
-/* =====================================
-   OTHER 3D GAMES
-===================================== */
+/* =====================================================
+   TARGET
+===================================================== */
 
-function setupArcade(id){
+function spawnTarget(){
 
-  const floor=
+  const target =
+    new THREE.Group();
+
+
+  const colors = [
+    0xff3366,
+    0xffff00,
+    0x00ff99,
+    0xff8800,
+    0xaa44ff
+  ];
+
+
+  const body =
     new THREE.Mesh(
-      new THREE.BoxGeometry(
-        40,.5,40
+      new THREE.SphereGeometry(
+        1,
+        20,
+        20
       ),
       new THREE.MeshStandardMaterial({
         color:
-          id==="space"
-          ?0x050525
-          :0x202040
-      })
-    );
-
-  floor.position.y=-.5;
-
-  scene.add(floor);
-
-
-  player=
-    new THREE.Mesh(
-      new THREE.SphereGeometry(
-        1,20,20
-      ),
-      new THREE.MeshStandardMaterial({
-        color:0x00eaff
-      })
-    );
-
-  player.position.set(
-    0,1,5
-  );
-
-  scene.add(player);
-
-
-  for(let i=0;i<8;i++){
-
-    const obj=
-      new THREE.Mesh(
-        new THREE.BoxGeometry(
-          1.5,1.5,1.5
-        ),
-        new THREE.MeshStandardMaterial({
-          color:
-            Math.random()*0xffffff
-        })
-      );
-
-    obj.position.set(
-      THREE.MathUtils.randFloat(-10,10),
-      THREE.MathUtils.randFloat(1,5),
-      THREE.MathUtils.randFloat(-15,3)
-    );
-
-    scene.add(obj);
-
-    objects.push(obj);
-  }
-
-  camera.position.set(
-    0,6,12
-  );
-}
-
-
-/* =====================================
-   SHOOT
-===================================== */
-
-function shoot(){
-
-  if(
-    !running ||
-    currentGame!=="blaster"
-  ) return;
-
-
-  const bullet=
-    new THREE.Mesh(
-      new THREE.SphereGeometry(
-        .16,10,10
-      ),
-      new THREE.MeshStandardMaterial({
-        color:0xffff00
-      })
-    );
-
-  bullet.position.copy(
-    player.position
-  );
-
-  bullet.position.y+=1;
-
-  bullet.userData.velocity=
-    new THREE.Vector3(
-      0,0,-20
-    );
-
-  scene.add(bullet);
-
-  bullets.push(bullet);
-}
-
-
-/* =====================================
-   UPDATE RACING
-===================================== */
-
-function updateRace(dt){
-
-  let move=0;
-
-  if(keys["arrowleft"]||keys["a"])
-    move=-1;
-
-  if(keys["arrowright"]||keys["d"])
-    move=1;
-
-
-  player.position.x+=
-    move*7*dt;
-
-  player.position.x=
-    THREE.MathUtils.clamp(
-      player.position.x,
-      -4.5,4.5
-    );
-
-
-  objects.forEach(obj=>{
-
-    if(obj.userData.police)
-      return;
-
-    if(obj.position.z===undefined)
-      return;
-
-    obj.position.z+=
-      12*dt;
-
-
-    if(obj.position.z>12){
-
-      obj.position.z=
-        -100-Math.random()*80;
-
-      obj.position.x=
-        [-4,0,4][
-          Math.floor(Math.random()*3)
-        ];
-
-      score+=10;
-
-      updateHUD();
-    }
-
-
-    if(
-      player &&
-      player.position.distanceTo(
-        obj.position
-      )<2
-    ){
-
-      obj.position.z=-100;
-
-      lives--;
-
-      updateHUD();
-
-      if(lives<=0)
-        gameOver();
-    }
-  });
-
-
-  camera.position.x +=
-    (player.position.x-
-     camera.position.x)*.08;
-
-  camera.lookAt(
-    player.position.x,
-    0,
-    -15
-  );
-
-  score+=dt*2;
-
-  updateHUD();
-}
-
-
-/* =====================================
-   UPDATE POLICE
-===================================== */
-
-function updatePolice(dt){
-
-  let move=0;
-
-  if(keys["arrowleft"]||keys["a"])
-    move=-1;
-
-  if(keys["arrowright"]||keys["d"])
-    move=1;
-
-
-  player.position.x+=
-    move*7*dt;
-
-  player.position.x=
-    THREE.MathUtils.clamp(
-      player.position.x,
-      -4.5,4.5
-    );
-
-
-  objects.forEach(obj=>{
-
-    if(!obj.userData.police)
-      return;
-
-
-    obj.position.x +=
-      (player.position.x-
-       obj.position.x)
-      *dt*.7;
-
-
-    obj.position.z -=
-      dt*2;
-
-
-    if(obj.position.z<6){
-
-      lives--;
-
-      obj.position.z=12;
-
-      updateHUD();
-
-      if(lives<=0)
-        gameOver();
-    }
-  });
-
-
-  score+=dt*3;
-
-  updateHUD();
-
-
-  camera.position.x +=
-    (player.position.x-
-     camera.position.x)*.08;
-
-  camera.lookAt(
-    player.position.x,
-    0,
-    -10
-  );
-}
-
-
-/* =====================================
-   UPDATE BLASTER
-===================================== */
-
-function updateBlaster(dt){
-
-  if(keys["arrowleft"]||keys["a"])
-    player.position.x-=8*dt;
-
-  if(keys["arrowright"]||keys["d"])
-    player.position.x+=8*dt;
-
-
-  player.position.x=
-    THREE.MathUtils.clamp(
-      player.position.x,
-      -10,10
-    );
-
-
-  bullets.forEach((b,i)=>{
-
-    b.position.z+=
-      b.userData.velocity.z*dt;
-
-
-    if(b.position.z<-30){
-
-      scene.remove(b);
-
-      bullets.splice(i,1);
-
-      return;
-    }
-
-
-    objects.forEach((target,j)=>{
-
-      if(
-        !target.userData.target
-      ) return;
-
-
-      if(
-        b.position.distanceTo(
-          target.position
-        )<1.4
-      ){
-
-        scene.remove(b);
-        scene.remove(target);
-
-        bullets.splice(i,1);
-        objects.splice(j,1);
-
-        score+=25;
-
-        updateHUD();
-
-        spawnTarget();
-      }
-    });
-  });
-
-
-  objects.forEach(obj=>{
-
-    if(obj.userData.target){
-
-      obj.position.x +=
-        Math.sin(
-          Date.now()*.002
-        )*.01;
-
-      obj.rotation.y+=
-        dt*2;
-    }
-  });
-
-
-  camera.lookAt(
-    player.position.x,
-    1,
-    0
-  );
-}
-
-
-/* =====================================
-   MAKE TARGETS IDENTIFIABLE
-===================================== */
-
-const oldSpawnTarget=spawnTarget;
-
-spawnTarget=function(){
-
-  const before=
-    objects.length;
-
-  oldSpawnTa
+          colors[
+            Math.floor(
+              Math.random()*colors.length
+            )
+    
