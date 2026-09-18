@@ -1,65 +1,142 @@
 <!doctype html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Game Zone - 5 Mini Games</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Game Zone 3D - Phase 1</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#0b1020;color:#fff}header{text-align:center;padding:22px 12px;background:linear-gradient(135deg,#171f3d,#0b1020)}h1{margin:0 0 6px;font-size:30px}header p{margin:0;color:#b9c4e4}.grid{max-width:1000px;margin:24px auto;padding:0 14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px}.card{background:#171e35;border:1px solid #2b3658;border-radius:16px;padding:18px;text-align:center;box-shadow:0 8px 20px #0004}.icon{font-size:42px}.card h2{font-size:19px;margin:10px 0}.card p{font-size:13px;color:#aeb8d2;min-height:35px}.btn{border:0;border-radius:10px;padding:11px 16px;background:#5b7cff;color:#fff;font-weight:bold;cursor:pointer}.btn:hover{filter:brightness(1.12)}#modal{display:none;position:fixed;inset:0;background:#000b;z-index:10;padding:15px;align-items:center;justify-content:center}.panel{width:min(760px,100%);background:#11182b;border:1px solid #334064;border-radius:18px;padding:14px;position:relative}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.top h2{margin:0;font-size:20px}.close{background:#e14d5a}.score{font-weight:bold;color:#ffd85c;text-align:center;margin:7px}.gamebox{display:block;width:100%;max-width:700px;margin:auto;background:#07101d;border-radius:12px;border:1px solid #2d3a5e;touch-action:none}.controls{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:10px}.hint{text-align:center;color:#aeb8d2;font-size:12px;margin:8px 0 0}footer{text-align:center;color:#7180a5;padding:20px}
+*{box-sizing:border-box}html,body{margin:0;background:#050510;color:#fff;font-family:Arial,sans-serif}
+body{overflow-x:hidden}header{text-align:center;padding:38px 15px;background:radial-gradient(circle at 20% 20%,#00eaff35,transparent 30%),radial-gradient(circle at 80% 70%,#ff00cc35,transparent 30%),linear-gradient(135deg,#050510,#181044,#050510)}
+h1{font-size:clamp(38px,9vw,70px);margin:0;color:#00eaff;text-shadow:0 0 18px #00eaff,0 0 45px #06f}
+header p{color:#ccc}.search{width:min(700px,92%);padding:14px 18px;margin:18px auto 0;display:block;border:1px solid #00eaff;border-radius:30px;background:#060615;color:#fff;outline:0}
+.filters{display:flex;gap:8px;padding:14px 4%;overflow:auto;justify-content:center;background:#080811}.filters button{white-space:nowrap}
+button{border:0;border-radius:12px;padding:11px 15px;background:linear-gradient(90deg,#702cff,#00aaff);color:#fff;font-weight:bold;cursor:pointer}
+main{width:min(1250px,94%);margin:auto;padding:25px 0 60px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{padding:20px;min-height:210px;border:1px solid #29295c;border-radius:20px;background:linear-gradient(145deg,#12122b,#080817)}.card:hover{border-color:#00eaff;box-shadow:0 0 25px #00eaff33;transform:translateY(-3px)}
+.icon{font-size:50px}.card h2{font-size:21px;margin:8px 0}.card p{color:#aaa;min-height:42px;line-height:1.35}.play{width:100%;margin-top:12px}
+footer{text-align:center;color:#777;padding:30px}
+#game{display:none;position:fixed;inset:0;background:#020208;z-index:100}#c{position:absolute;inset:0;width:100%;height:100%}
+#hud{position:absolute;z-index:110;top:10px;left:10px;right:10px;display:flex;justify-content:space-between;gap:6px;pointer-events:none}
+.h{background:#000b;border:1px solid #00eaff;border-radius:10px;padding:8px 11px;font-weight:bold}
+#exit{position:absolute;z-index:120;right:10px;top:58px;background:#160918;border:1px solid #ff40d8}
+#help{position:absolute;z-index:110;left:50%;bottom:10px;transform:translateX(-50%);background:#000b;padding:7px 11px;border-radius:9px;text-align:center;color:#ddd;font-size:13px}
+#touch{display:none;position:absolute;z-index:115;bottom:16px;left:0;right:0;justify-content:space-between;padding:0 16px;pointer-events:none}.tg{display:flex;gap:10px}
+.ctrl{width:64px;height:64px;border-radius:50%;font-size:24px;padding:0;pointer-events:auto;background:#000b;border:2px solid #00eaff}
+#over{display:none;position:absolute;inset:0;z-index:130;background:#000a;align-items:center;justify-content:center}
+.box{width:min(390px,90%);padding:28px;text-align:center;background:#09091d;border:2px solid #00eaff;border-radius:22px}.box h2{color:#00eaff;font-size:34px;margin:0 0 10px}.box button{width:100%;margin-top:10px}
+@media(max-width:700px){.filters{justify-content:flex-start}#touch{display:flex}#help{bottom:92px;max-width:88%}}
 </style>
 </head>
 <body>
-<header><h1>🎮 GAME ZONE</h1><p>5 simple browser games • Mobile + PC</p></header>
-<main class="grid">
-<div class="card"><div class="icon">🔫</div><h2>Cartoon Blaster</h2><p>Hit the moving targets.</p><button class="btn" onclick="openGame('gun')">PLAY</button></div>
-<div class="card"><div class="icon">🏃</div><h2>Jungle Runner</h2><p>Jump over obstacles.</p><button class="btn" onclick="openGame('runner')">PLAY</button></div>
-<div class="card"><div class="icon">🏎️</div><h2>Road Dodge</h2><p>Dodge traffic and survive.</p><button class="btn" onclick="openGame('car')">PLAY</button></div>
-<div class="card"><div class="icon">🚀</div><h2>Space Shooter</h2><p>Blast incoming meteors.</p><button class="btn" onclick="openGame('space')">PLAY</button></div>
-<div class="card"><div class="icon">🪙</div><h2>Coin Catcher</h2><p>Catch coins, avoid bombs.</p><button class="btn" onclick="openGame('coin')">PLAY</button></div>
-</main>
-<footer>🎮 Game Zone • Phase 1 Mini Pack</footer>
-<div id="modal"><div class="panel"><div class="top"><h2 id="title">Game</h2><button class="btn close" onclick="closeGame()">CLOSE</button></div><div class="score" id="score">Score: 0</div><canvas id="gamebox" class="gamebox" width="700" height="420"></canvas><div class="controls" id="controls"></div><div class="hint" id="hint"></div></div></div>
+<header>
+<h1>🎮 GAME ZONE 3D</h1>
+<p>Phase 1 • 10 WebGL 3D browser games</p>
+<input id="search" class="search" placeholder="🔎 Search games..." oninput="render()">
+</header>
+<div class="filters">
+<button onclick="cat='all';render()">All</button><button onclick="cat='racing';render()">🏎️ Racing</button>
+<button onclick="cat='action';render()">🎯 Action</button><button onclick="cat='space';render()">🚀 Space</button>
+<button onclick="cat='arcade';render()">🕹️ Arcade</button>
+</div>
+<main><div id="grid" class="grid"></div></main>
+<footer>Game Zone 3D • Phase 1</footer>
+
+<div id="game">
+<canvas id="c"></canvas>
+<div id="hud"><div class="h" id="name">GAME</div><div class="h">⭐ <span id="sc">0</span></div><div class="h">❤️ <span id="hp">3</span></div></div>
+<button id="exit" onclick="closeGame()">✕ Exit</button>
+<div id="help"></div>
+<div id="touch"><div class="tg"><button class="ctrl" id="L">◀</button><button class="ctrl" id="R">▶</button></div><button class="ctrl" id="F">🔥</button></div>
+<div id="over"><div class="box"><h2>GAME OVER</h2><p>Score: <b id="final">0</b></p><button onclick="restart()">🔄 Play Again</button><button onclick="closeGame()">🏠 Main Menu</button></div></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 <script>
-'use strict';
-const modal=document.getElementById('modal'),canvas=document.getElementById('gamebox'),ctx=canvas.getContext('2d');
-const titleEl=document.getElementById('title'),scoreEl=document.getElementById('score'),controlsEl=document.getElementById('controls'),hintEl=document.getElementById('hint');
-let raf=0,keys={},state=null,gameType='';
-window.addEventListener('keydown',e=>{keys[e.key.toLowerCase()]=true;if(e.key===' '){e.preventDefault();keys.space=true}});
-window.addEventListener('keyup',e=>{keys[e.key.toLowerCase()]=false;if(e.key===' ')keys.space=false});
-function resizeCanvas(){const max=700,w=Math.min(max,window.innerWidth-30);canvas.style.width=w+'px';canvas.style.height=(w*420/700)+'px'}
-window.addEventListener('resize',resizeCanvas);
-function clear(){ctx.clearRect(0,0,700,420)}
-function text(t,x,y,size=24){ctx.fillStyle='#fff';ctx.font='bold '+size+'px Arial';ctx.fillText(t,x,y)}
-function button(label,fn){const b=document.createElement('button');b.className='btn';b.textContent=label;b.onclick=fn;controlsEl.appendChild(b)}
-function setScore(v){scoreEl.textContent='Score: '+Math.floor(v)}
-function setup(name,hint){titleEl.textContent=name;hintEl.textContent=hint;controlsEl.innerHTML='';resizeCanvas()}
-function endGame(msg){state.over=true;cancelAnimationFrame(raf);ctx.fillStyle='#000b';ctx.fillRect(0,0,700,420);text(msg,230,190,28);text('Score: '+Math.floor(state.score),260,230,22);button('PLAY AGAIN',()=>startGame(gameType))}
-function closeGame(){cancelAnimationFrame(raf);modal.style.display='none';state=null}
-function openGame(type){modal.style.display='flex';startGame(type)}
-function startGame(type){cancelAnimationFrame(raf);gameType=type;modal.style.display='flex';if(type==='gun')gun();else if(type==='runner')runner();else if(type==='car')car();else if(type==='space')space();else coin()}
-function loop(fn){function frame(){fn();if(!state.over)raf=requestAnimationFrame(frame)}raf=requestAnimationFrame(frame)}
+"use strict";
+const G=[
+["race","🏎️","3D Neon Racing","racing"],["police","🚔","3D Police Escape","racing"],
+["blaster","🎯","3D Cartoon Blaster","action"],["alien","👾","3D Alien Blaster","action"],
+["space","🚀","3D Space Shooter","space"],["ufo","🛸","3D UFO Dodge","arcade"],
+["tank","🛡️","3D Tank Arena","action"],["target","🎯","3D Target Rush","action"],
+["robot","🤖","3D Robot Survival","action"],["runner","⭐","3D Star Runner","arcade"]
+];
+const desc={race:"3D highway racing with traffic.",police:"Escape the cartoon police car.",blaster:"Colorful energy shots vs moving targets.",alien:"Defend the arena from cartoon aliens.",space:"Fly in 3D space and hit drones.",ufo:"Dodge incoming UFOs.",tank:"Cartoon tank vs moving bots.",target:"Hit glowing targets for points.",robot:"Survive waves of cartoon robots.",runner:"Collect stars and dodge obstacles."};
+let cat="all";
+function render(){let q=document.getElementById("search").value.toLowerCase();grid.innerHTML="";
+G.filter(g=>(cat=="all"||g[3]==cat)&&(!q||(g[2]+" "+desc[g[0]]).toLowerCase().includes(q))).forEach(g=>{
+let d=document.createElement("div");d.className="card";d.innerHTML=`<div class="icon">${g[1]}</div><h2>${g[2]}</h2><p>${desc[g[0]]}</p><button class="play" onclick="start('${g[0]}')">▶ PLAY NOW</button>`;grid.appendChild(d)})}
+render();
 
-function gun(){setup('🔫 Cartoon Blaster','Mouse/touch: tap the target • PC: click target');state={score:0,over:false,time:30,target:{x:350,y:210,r:28},last:performance.now()};button('RESTART',()=>gun());let lastMove=0;
-function draw(now){clear();let dt=(now-state.last)/1000;state.last=now;state.time-=dt;if(state.time<=0){endGame('TIME UP!');return}if(now-lastMove>700){state.target.x=60+Math.random()*580;state.target.y=70+Math.random()*300;lastMove=now}ctx.fillStyle='#15243b';ctx.fillRect(0,0,700,420);ctx.fillStyle='#253d5e';for(let i=0;i<10;i++){ctx.beginPath();ctx.arc(70+i*75,60+(i%2)*280,18,0,Math.PI*2);ctx.fill()}ctx.fillStyle='#ff5d6c';ctx.beginPath();ctx.arc(state.target.x,state.target.y,state.target.r,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(state.target.x,state.target.y,17,0,Math.PI*2);ctx.fill();ctx.fillStyle='#222';ctx.beginPath();ctx.arc(state.target.x,state.target.y,7,0,Math.PI*2);ctx.fill();text('Time: '+Math.ceil(state.time),20,35,20);setScore(state.score)}
-function hit(e){const r=canvas.getBoundingClientRect(),x=(e.clientX-r.left)*700/r.width,y=(e.clientY-r.top)*420/r.height;const d=Math.hypot(x-state.target.x,y-state.target.y);if(d<state.target.r){state.score+=10;state.target.x=60+Math.random()*580;state.target.y=70+Math.random()*300}}
-canvas.onpointerdown=hit;loop(draw)}
+let scene,camera,renderer,clock,mode,player,running=false,score=0,lives=3,t=0;
+let objs=[],shots=[],mx=0;const keys={};
+const game=document.getElementById("game"),canvas=document.getElementById("c");
+function init(){
+ if(renderer)return;
+ scene=new THREE.Scene();camera=new THREE.PerspectiveCamera(65,innerWidth/innerHeight,.1,1200);
+ renderer=new THREE.WebGLRenderer({canvas,antialias:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+ scene.add(new THREE.AmbientLight(0xffffff,.75));let dl=new THREE.DirectionalLight(0xffffff,1.5);dl.position.set(10,15,8);scene.add(dl);
+ clock=new THREE.Clock();addEventListener("resize",resize);
+ addEventListener("keydown",e=>{keys[e.key.toLowerCase()]=true;if(e.code=="Space")fire()});
+ addEventListener("keyup",e=>keys[e.key.toLowerCase()]=false);
+ canvas.addEventListener("pointerdown",()=>{if(isShoot())fire()});
+ touch("L",-1);touch("R",1);document.getElementById("F").addEventListener("touchstart",e=>{e.preventDefault();fire()},{passive:false});
+ requestAnimationFrame(loop)
+}
+function touch(id,v){let b=document.getElementById(id);b.addEventListener("touchstart",e=>{e.preventDefault();mx=v},{passive:false});b.addEventListener("touchend",e=>{e.preventDefault();if(mx==v)mx=0},{passive:false})}
+function resize(){camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)}
+function start(id){
+ init();mode=id;running=true;score=0;lives=3;t=0;mx=0;clear();game.style.display="block";document.getElementById("over").style.display="none";
+ document.getElementById("name").textContent=G.find(x=>x[0]==id)[2];document.getElementById("help").textContent=isShoot()?"A/D or ←/→ + Space/click • Mobile buttons + tap":"A/D or ←/→ • Avoid obstacles";
+ hud();
+ if(id=="race")race();else if(id=="police")police();else if(id=="tank")tank();else if(id=="runner")runner();else shooter();
+}
+function closeGame(){running=false;mode=null;game.style.display="none";clear()}
+function restart(){if(mode)start(mode)}
+function clear(){objs=[];shots=[];player=null;if(!scene)return;while(scene.children.length>2)scene.remove(scene.children[scene.children.length-1])}
+function hud(){sc.textContent=Math.floor(score);hp.textContent=lives}
+function end(){running=false;final.textContent=Math.floor(score);over.style.display="flex"}
+function box(w,h,d,col){let m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),new THREE.MeshStandardMaterial({color:col}));m.castShadow=true;return m}
+function sph(r,col){return new THREE.Mesh(new THREE.SphereGeometry(r,18,18),new THREE.MeshStandardMaterial({color:col}))}
+function car(col){let g=new THREE.Group(),b=box(2,.6,3.6,col);b.position.y=.7;g.add(b);let c=box(1.4,.6,1.7,0x182236);c.position.set(0,1.2,-.2);g.add(c);
+for(let x of[-1,1])for(let z of[-1,1]){let w=new THREE.Mesh(new THREE.CylinderGeometry(.36,.36,.24,14),new THREE.MeshStandardMaterial({color:0x050505}));w.rotation.z=Math.PI/2;w.position.set(x*1.05,.38,z*1.1);g.add(w)}return g}
+function road(){let a=box(80,.3,1100,0x101010);a.position.set(0,-.3,-500);scene.add(a);let r=box(12,.2,1100,0x292929);r.position.set(0,-.15,-500);scene.add(r);
+for(let z=8;z>-1080;z-=9){let l=box(.12,.04,4,0xffffff);l.position.set(0,0,z);scene.add(l);objs.push(l)}}
+function lane(){return[-4,0,4][Math.floor(Math.random()*3)]}
+function hit(a,b,r){return a&&b&&a.position.distanceTo(b.position)<r}
+function move(dt,lim){let x=0;if(keys["arrowleft"]||keys["a"])x=-1;if(keys["arrowright"]||keys["d"])x=1;if(mx)x=mx;player.position.x=THREE.MathUtils.clamp(player.position.x+x*8*dt,-lim,lim)}
+function follow(){camera.position.x+=(player.position.x-camera.position.x)*.08;camera.lookAt(player.position.x,0,-15)}
 
-function runner(){setup('🏃 Jungle Runner','SPACE / ↑ = jump • Mobile buttons below');state={score:0,over:false,player:{x:90,y:330,vy:0,on:true},obs:[],last:performance.now(),spawn:0,speed:280};button('JUMP',jump);button('RESTART',()=>runner());function jump(){if(state.player.on){state.player.vy=-500;state.player.on=false}}
-function draw(now){clear();let dt=Math.min(.04,(now-state.last)/1000);state.last=now;state.score+=dt*10;state.spawn+=dt;state.speed+=dt*2;if(state.spawn>.9){state.spawn=0;state.obs.push({x:720,w:28+Math.random()*20,h:35+Math.random()*35})}state.player.vy+=1100*dt;state.player.y+=state.player.vy*dt;if(state.player.y>=330){state.player.y=330;state.player.vy=0;state.player.on=true}for(const o of state.obs)o.x-=state.speed*dt;state.obs=state.obs.filter(o=>o.x>-60);for(const o of state.obs){if(o.x<120&&o.x+o.w>75&&state.player.y+45>420-o.h) {endGame('GAME OVER!');return}}
-ctx.fillStyle='#7ecbff';ctx.fillRect(0,0,700,420);ctx.fillStyle='#58a85c';ctx.fillRect(0,375,700,45);ctx.fillStyle='#2e7d32';for(let x=0;x<700;x+=55)ctx.fillRect(x,350,4,25);ctx.fillStyle='#ffd35a';ctx.beginPath();ctx.arc(590,70,32,0,Math.PI*2);ctx.fill();ctx.fillStyle='#ff7b54';ctx.fillRect(75,state.player.y,45,45);ctx.fillStyle='#333';for(const o of state.obs)ctx.fillRect(o.x,420-o.h,o.w,o.h);setScore(state.score)}
-loop(draw);window._runnerJump=jump}
+function race(){road();player=car(0x00eaff);player.position.set(0,0,5);scene.add(player);for(let i=0;i<5;i++){let e=car([0xff3355,0xffdd22,0x55ff66,0xaa55ff][i%4]);e.position.set(lane(),0,-35-i*40);e.userData.traffic=true;scene.add(e);objs.push(e)}camera.position.set(0,5.5,11)}
+function updateRace(dt){move(dt,4.5);objs.forEach(o=>{if(!o.userData.traffic)return;o.position.z+=14*dt;if(o.position.z>13){o.position.z=-80-Math.random()*70;o.position.x=lane();score+=10}if(hit(player,o,1.8)){o.position.z=-100;lives--;if(lives<=0)end()}});score+=dt*2;follow();hud()}
 
-function car(){setup('🏎️ Road Dodge','← → / A D = move • Avoid the cars');state={score:0,over:false,x:330,last:performance.now(),speed:260,traffic:[]};button('LEFT',()=>state.x-=45);button('RIGHT',()=>state.x+=45);button('RESTART',()=>car());function draw(now){clear();let dt=Math.min(.04,(now-state.last)/1000);state.last=now;state.score+=dt*12;state.speed+=dt*3;if(Math.random()<dt*1.5)state.traffic.push({x:120+Math.floor(Math.random()*4)*120,y:-70,w:55,h:80});state.x=Math.max(100,Math.min(545,state.x));for(const t of state.traffic)t.y+=state.speed*dt;state.traffic=state.traffic.filter(t=>t.y<450);for(const t of state.traffic){if(t.x<state.x+55&&t.x+t.w>state.x&&t.y<360&&t.y+t.h>280){endGame('CRASH!');return}}
-ctx.fillStyle='#30343b';ctx.fillRect(70,0,560,420);ctx.fillStyle='#1c2025';ctx.fillRect(85,0,530,420);ctx.strokeStyle='#eee';ctx.lineWidth=5;ctx.setLineDash([25,25]);ctx.lineDashOffset=-(state.score*8);ctx.beginPath();ctx.moveTo(210,0);ctx.lineTo(210,420);ctx.moveTo(350,0);ctx.lineTo(350,420);ctx.moveTo(490,0);ctx.lineTo(490,420);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#35a7ff';ctx.fillRect(state.x,300,55,85);ctx.fillStyle='#9edcff';ctx.fillRect(state.x+10,310,35,20);ctx.fillStyle='#ff5d6c';for(const t of state.traffic){ctx.fillRect(t.x,t.y,t.w,t.h);ctx.fillStyle='#222';ctx.fillRect(t.x+8,t.y+12,t.w-16,18);ctx.fillStyle='#ff5d6c'}setScore(state.score)}
-loop(draw)}
+function police(){road();player=car(0x00aaff);player.position.set(0,0,3);scene.add(player);let p=car(0xffffff);p.position.set(0,0,17);p.userData.police=true;scene.add(p);objs.push(p);camera.position.set(0,5.5,11)}
+function updatePolice(dt){move(dt,4.5);let p=objs[0];p.position.x+=(player.position.x-p.position.x)*dt*.8;p.position.z-=2.5*dt;if(p.position.z<6){p.position.z=15;lives--;if(lives<=0)end()}score+=dt*3;follow();hud()}
 
-function space(){setup('🚀 Space Shooter','← → = move • SPACE = shoot • Destroy meteors');state={score:0,over:false,x:325,shots:[],meteors:[],last:performance.now(),spawn:0,shot:0};button('LEFT',()=>state.x-=35);button('SHOOT',shoot);button('RIGHT',()=>state.x+=35);button('RESTART',()=>space());function shoot(){if(state.shot<=0){state.shots.push({x:state.x+25,y:345});state.shot=.22}}function draw(now){clear();let dt=Math.min(.04,(now-state.last)/1000);state.last=now;state.score+=dt*5;state.shot-=dt;state.spawn+=dt;if(state.spawn>.55){state.spawn=0;state.meteors.push({x:20+Math.random()*640,y:-30,r:15+Math.random()*13,s:90+Math.random()*90})}if(keys.arrowleft||keys.a)state.x-=260*dt;if(keys.arrowright||keys.d)state.x+=260*dt;if(keys.space)shoot();state.x=Math.max(0,Math.min(650,state.x));for(const s of state.shots)s.y-=430*dt;for(const m of state.meteors)m.y+=m.s*dt;for(const m of state.meteors){if(m.y>390){endGame('METEOR HIT!');return}}for(const s of state.shots)for(const m of state.meteors){if(Math.hypot(s.x-m.x,s.y-m.y)<m.r+6){m.dead=true;s.dead=true;state.score+=25}}state.shots=state.shots.filter(s=>s.y>-20&&!s.dead);state.meteors=state.meteors.filter(m=>!m.dead);
-ctx.fillStyle='#050718';ctx.fillRect(0,0,700,420);for(let i=0;i<50;i++){ctx.fillStyle='#fff';ctx.fillRect((i*137)%700,(i*71)%400,2,2)}ctx.fillStyle='#4de0ff';ctx.beginPath();ctx.moveTo(state.x+27,285);ctx.lineTo(state.x,370);ctx.lineTo(state.x+55,370);ctx.closePath();ctx.fill();ctx.fillStyle='#ffe16b';for(const s of state.shots)ctx.fillRect(s.x,s.y,6,16);ctx.fillStyle='#b5b5b5';for(const m of state.meteors){ctx.beginPath();ctx.arc(m.x,m.y,m.r,0,Math.PI*2);ctx.fill()}setScore(state.score)}loop(draw)}
+function shooter(){let f=box(34,.4,34,mode=="space"?0x05052a:0x171735);f.position.y=-.25;scene.add(f);player=box(1.6,1,1.6,0x00eaff);player.position.set(0,1,8);scene.add(player);camera.position.set(0,7,15);camera.lookAt(0,1,0);for(let i=0;i<7;i++)enemy()}
+function isShoot(){return["blaster","alien","space","target","robot"].includes(mode)}
+function enemy(){let o=sph(1,[0xff3355,0xffff33,0x33ffcc,0xaa55ff][Math.floor(Math.random()*4)]);if(mode=="alien"||mode=="robot"){o.scale.set(1.15,1.25,.9)}o.position.set(THREE.MathUtils.randFloat(-11,11),THREE.MathUtils.randFloat(.8,5.5),THREE.MathUtils.randFloat(-16,1));o.userData.enemy=true;o.userData.v=.7+Math.random()*1.2;scene.add(o);objs.push(o)}
+function fire(){if(!running||!isShoot()||!player)return;let b=sph(.15,0xffff00);b.position.copy(player.position);b.position.y+=.5;b.userData.v=22;scene.add(b);shots.push(b)}
+function updateShooter(dt){move(dt,11);if(mode=="space")player.position.y=1.5;
+shots.slice().forEach(b=>{b.position.z-=b.userData.v*dt;if(b.position.z<-30){scene.remove(b);shots.splice(shots.indexOf(b),1);return}
+for(let o of objs.slice())if(o.userData.enemy&&hit(b,o,1.25)){scene.remove(b);scene.remove(o);shots.splice(shots.indexOf(b),1);objs.splice(objs.indexOf(o),1);score+=25;enemy();break}});
+objs.forEach(o=>{if(!o.userData.enemy)return;o.rotation.y+=dt*2;
+if(mode=="blaster"||mode=="target")o.position.x+=Math.sin(t*2+o.position.z)*dt*1.5;
+else if(mode=="alien"||mode=="robot")o.position.z+=o.userData.v*dt*(1+t*.01);else o.position.z+=o.userData.v*dt*3;
+if(o.position.z>9){o.position.z=THREE.MathUtils.randFloat(-16,-6);o.position.x=THREE.MathUtils.randFloat(-11,11);lives--;if(lives<=0)end()}
+if(hit(player,o,1.5)&&mode!="target"){lives--;o.position.z=-15;if(lives<=0)end()}});
+score+=dt*(mode=="target"?1.5:1);camera.lookAt(player.position.x,1,0);hud()}
 
-function coin(){setup('🪙 Coin Catcher','← → / A D = move • Catch coins, avoid bombs');state={score:0,over:false,x:325,items:[],last:performance.now(),spawn:0};button('LEFT',()=>state.x-=40);button('RIGHT',()=>state.x+=40);button('RESTART',()=>coin());function draw(now){clear();let dt=Math.min(.04,(now-state.last)/1000);state.last=now;state.spawn+=dt;state.score+=dt*2;if(state.spawn>.5){state.spawn=0;state.items.push({x:20+Math.random()*650,y:-20,type:Math.random()<.75?'coin':'bomb',s:130+Math.random()*100})}if(keys.arrowleft||keys.a)state.x-=250*dt;if(keys.arrowright||keys.d)state.x+=250*dt;state.x=Math.max(0,Math.min(650,state.x));for(const it of state.items)it.y+=it.s*dt;for(const it of state.items){if(it.y>340&&it.y<400&&it.x>state.x-10&&it.x<state.x+65){if(it.type==='bomb'){endGame('BOOM!');return}else{state.score+=20;it.dead=true}}}state.items=state.items.filter(i=>i.y<450&&!i.dead);ctx.fillStyle='#14233d';ctx.fillRect(0,0,700,420);ctx.fillStyle='#5c9e67';ctx.fillRect(0,385,700,35);ctx.fillStyle='#ff9f43';ctx.fillRect(state.x,350,65,35);for(const it of state.items){ctx.fillStyle=it.type==='coin'?'#ffd43b':'#ef4f5f';ctx.beginPath();ctx.arc(it.x,it.y,16,0,Math.PI*2);ctx.fill();if(it.type==='bomb'){ctx.fillStyle='#222';ctx.fillRect(it.x-3,it.y-23,6,8)}}setScore(state.score)}loop(draw)}
+function tank(){let f=box(35,.4,35,0x24391f);f.position.y=-.25;scene.add(f);player=box(2,1,2.5,0x35aa55);player.position.set(0,.6,8);scene.add(player);let turret=box(.7,.7,1.8,0x77cc66);turret.position.set(0,1.2,-.4);player.add(turret);camera.position.set(0,7,15);for(let i=0;i<6;i++){let o=car(0xff8844);o.scale.set(.65,.65,.65);o.position.set(THREE.MathUtils.randFloat(-11,11),0,THREE.MathUtils.randFloat(-15,0));o.userData.enemy=true;o.userData.v=1+Math.random();scene.add(o);objs.push(o)}}
+function updateTank(dt){move(dt,12);shots.slice().forEach(b=>{b.position.z-=22*dt;if(b.position.z<-30){scene.remove(b);shots.splice(shots.indexOf(b),1);return}for(let o of objs.slice())if(o.userData.enemy&&hit(b,o,1.5)){scene.remove(b);scene.remove(o);shots.splice(shots.indexOf(b),1);objs.splice(objs.indexOf(o),1);score+=30;enemyTank();break}});
+objs.forEach(o=>{if(!o.userData.enemy)return;o.position.z+=o.userData.v*dt;if(o.position.z>10){o.position.z=-15;o.position.x=THREE.MathUtils.randFloat(-11,11);lives--;if(lives<=0)end()}});score+=dt;camera.lookAt(player.position.x,1,0);hud()}
+function enemyTank(){let o=car(0xff8844);o.scale.set(.65,.65,.65);o.position.set(THREE.MathUtils.randFloat(-11,11),0,-15);o.userData.enemy=true;o.userData.v=1+Math.random();scene.add(o);objs.push(o)}
 
-// Mouse/touch-friendly keyboard actions for runner.
-window.addEventListener('keydown',e=>{if(gameType==='runner'&&(e.key===' '||e.key==='ArrowUp'||e.key.toLowerCase()==='w')){e.preventDefault();if(typeof window._runnerJump==='function')window._runnerJump()}});
+function runner(){let f=box(35,.3,120,0x101020);f.position.set(0,-.3,-50);scene.add(f);player=box(1.5,1.5,1.5,0x00eaff);player.position.set(0,.8,6);scene.add(player);
+for(let i=0;i<8;i++){let s=sph(.45,0xffff33);s.userData.star=true;s.position.set(lane(),1,-12-i*10);scene.add(s);objs.push(s)}
+for(let i=0;i<5;i++){let o=box(1.6,1.6,1.6,0xff4466);o.userData.obs=true;o.position.set(lane(),.8,-25-i*25);scene.add(o);objs.push(o)}camera.position.set(0,5,11)}
+function updateRunner(dt){move(dt,4.5);objs.forEach(o=>{o.position.z+=12*dt;o.rotation.y+=dt*2;if(o.position.z>10){o.position.z=-70-Math.random()*30;o.position.x=lane()}if(hit(player,o,1.3)){if(o.userData.star){score+=25;o.position.z=-70-Math.random()*30;o.position.x=lane()}else{o.position.z=-70;lives--;if(lives<=0)end()}}});score+=dt*2;follow();hud()}
+
+function loop(){requestAnimationFrame(loop);let dt=Math.min(clock.getDelta(),.05);if(running){t+=dt;if(mode=="race")updateRace(dt);else if(mode=="police")updatePolice(dt);else if(mode=="tank")updateTank(dt);else if(mode=="runner")updateRunner(dt);else updateShooter(dt)}renderer.render(scene,camera)}
 </script>
 </body>
 </html>
