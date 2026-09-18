@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Zone</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#0b1020;
+  color:white;
+  text-align:center;
+}
+
+header{
+  padding:25px 15px;
+  background:#151d35;
+}
+
+header h1{
+  font-size:36px;
+}
+
+header p{
+  margin-top:8px;
+  color:#b9c2d9;
+}
+
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:30px 15px;
+}
+
+.games{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:#151d35;
+  border:1px solid #293452;
+  border-radius:18px;
+  padding:25px 15px;
+}
+
+.icon{
+  font-size:55px;
+  margin-bottom:15px;
+}
+
+.card h2{
+  margin-bottom:10px;
+}
+
+.card p{
+  color:#aeb7cc;
+  margin-bottom:18px;
+}
+
+button{
+  border:none;
+  padding:12px 25px;
+  border-radius:10px;
+  background:#4f7cff;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
+
+button:hover{
+  opacity:.85;
+}
+
+#gameArea{
+  display:none;
+  margin-top:30px;
+  background:#151d35;
+  padding:25px;
+  border-radius:18px;
+}
+
+#score{
+  font-size:22px;
+  margin:15px;
+}
+
+footer{
+  margin-top:40px;
+  padding:20px;
+  background:#151d35;
+  color:#9da7bd;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🎮 GAME ZONE</h1>
+  <p>Play Fun Games Online</p>
+</header>
+
+<div class="container">
+
+  <h2 style="margin-bottom:25px;">🔥 Choose Your Game</h2>
+
+  <div class="games">
+
+    <div class="card">
+      <div class="icon">🎯</div>
+      <h2>Click Challenge</h2>
+      <p>Click the button as many times as possible!</p>
+      <button onclick="startClickGame()">Play Now</button>
+    </div>
+
+    <div class="card">
+      <div class="icon">🎲</div>
+      <h2>Dice Game</h2>
+      <p>Roll the dice and test your luck.</p>
+      <button onclick="rollDice()">Roll Dice</button>
+    </div>
+
+    <div class="card">
+      <div class="icon">🧠</div>
+      <h2>Number Guess</h2>
+      <p>Guess the secret number between 1 and 10.</p>
+      <button onclick="guessNumber()">Play Now</button>
+    </div>
+
+  </div>
+
+  <div id="gameArea">
+    <h2 id="gameTitle"></h2>
+    <div id="gameContent"></div>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Game Zone | Made with ❤️
+</footer>
+
+<script>
+
+let score = 0;
+
+function startClickGame(){
+
+  score = 0;
+
+  document.getElementById("gameArea").style.display="block";
+
+  document.getElementById("gameTitle").innerText="🎯 Click Challenge";
+
+  document.getElementById("gameContent").innerHTML=`
+    <p id="score">Score: 0</p>
+    <button onclick="clickScore()">CLICK ME!</button>
+  `;
+}
+
+function clickScore(){
+
+  score++;
+
+  document.getElementById("score").innerText="Score: "+score;
+}
+
+function rollDice(){
+
+  let number=Math.floor(Math.random()*6)+1;
+
+  document.getElementById("gameArea").style.display="block";
+
+  document.getElementById("gameTitle").innerText="🎲 Dice Game";
+
+  document.getElementById("gameContent").innerHTML=`
+    <div style="font-size:70px;margin:20px;">🎲</div>
+    <h2>You rolled: ${number}</h2>
+    <br>
+    <button onclick="rollDice()">Roll Again</button>
+  `;
+}
+
+function guessNumber(){
+
+  let secret=Math.floor(Math.random()*10)+1;
+
+  let answer=prompt("Guess a number between 1 and 10:");
+
+  if(answer==secret){
+
+    alert("🎉 Correct! You won!");
+
+  }else{
+
+    alert("❌ Wrong! The number was "+secret);
+
+  }
+
+}
+
+</script>
+
+</body>
+  </html>
