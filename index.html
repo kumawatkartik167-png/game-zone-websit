@@ -2,241 +2,244 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Game Zone 🎮</title>
+<meta name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<title>Game Zone 3D</title>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  font-family:Arial,sans-serif;
-  background:#050b20;
+  background:#050510;
   color:white;
+  font-family:Arial,sans-serif;
   overflow-x:hidden;
 }
 
 header{
-  padding:18px 5%;
-  background:#071126;
-  border-bottom:1px solid #00d9ff;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:15px;
-}
-
-.logo{
-  font-size:28px;
-  font-weight:bold;
-  color:#00eaff;
-  text-shadow:0 0 15px #00eaff;
-}
-
-nav a{
-  color:white;
-  text-decoration:none;
-  margin:0 10px;
-  font-weight:bold;
-}
-
-.hero{
-  min-height:350px;
+  min-height:230px;
   padding:45px 20px;
   text-align:center;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  position:relative;
-  overflow:hidden;
   background:
-    radial-gradient(circle at 15% 50%,#0066ff55,transparent 30%),
-    radial-gradient(circle at 85% 50%,#ff00cc55,transparent 30%),
-    linear-gradient(135deg,#06112d,#111b42);
-  border-bottom:2px solid #00d9ff;
+    radial-gradient(circle at 20% 30%,#00eaff44,transparent 30%),
+    radial-gradient(circle at 80% 70%,#ff00cc44,transparent 30%),
+    linear-gradient(135deg,#050510,#15104a,#050510);
 }
 
-.hero:before{
-  content:"";
-  position:absolute;
-  width:260px;
-  height:260px;
-  border:3px solid #00eaff;
-  border-radius:50%;
-  animation:spin 6s linear infinite;
-  box-shadow:0 0 30px #00eaff;
+header h1{
+  font-size:clamp(38px,8vw,72px);
+  color:#00eaff;
+  text-shadow:0 0 20px #00eaff,0 0 50px #0066ff;
 }
 
-@keyframes spin{
-  from{transform:rotate(0deg) scale(.8)}
-  to{transform:rotate(360deg) scale(1.15)}
+header p{
+  margin-top:12px;
+  color:#ccc;
+  font-size:18px;
 }
 
-.hero h1{
-  position:relative;
-  font-size:55px;
-  text-shadow:0 0 20px #00eaff;
-}
-
-.hero p{
-  position:relative;
-  font-size:19px;
-  margin:12px;
-}
-
-.hero button{
-  position:relative;
-  padding:15px 30px;
-  border:0;
+.search{
+  width:min(700px,90%);
+  margin:25px auto 0;
+  display:block;
+  padding:15px 20px;
   border-radius:30px;
-  background:#ffc400;
-  font-size:19px;
-  font-weight:bold;
+  border:2px solid #00eaff;
+  background:#050510cc;
+  color:white;
+  outline:none;
+  font-size:16px;
+}
+
+.categories{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding:18px;
+  justify-content:center;
+}
+
+.categories button{
+  white-space:nowrap;
+  border:1px solid #00eaff;
+  background:#101025;
+  color:white;
+  padding:10px 18px;
+  border-radius:20px;
   cursor:pointer;
-  box-shadow:0 0 25px #ffc400;
 }
 
-section{
-  padding:35px 4%;
+.container{
+  width:min(1200px,94%);
+  margin:auto;
+  padding:20px 0 60px;
 }
 
-section h2{
-  font-size:30px;
-  margin-bottom:25px;
-}
-
-.games{
+.grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:20px;
 }
 
 .card{
-  background:#111b38;
-  border:1px solid #174b91;
-  border-radius:18px;
-  padding:20px;
-  text-align:center;
-  transition:.3s;
+  background:linear-gradient(145deg,#11112a,#080817);
+  border:1px solid #25255a;
+  border-radius:20px;
+  padding:22px;
+  min-height:220px;
+  transition:.2s;
 }
 
 .card:hover{
-  transform:translateY(-7px);
-  box-shadow:0 0 25px #008cff88;
+  transform:translateY(-5px);
+  border-color:#00eaff;
+  box-shadow:0 0 25px #00eaff33;
 }
 
 .icon{
   font-size:55px;
-  margin-bottom:10px;
 }
 
-.card h3{
-  font-size:22px;
-  margin:8px;
+.card h2{
+  margin:10px 0;
 }
 
 .card p{
-  color:#b9c5dd;
-  min-height:45px;
+  color:#aaa;
+  min-height:42px;
 }
 
 .play{
+  margin-top:18px;
+  width:100%;
+  padding:13px;
   border:0;
-  padding:11px 22px;
-  border-radius:25px;
+  border-radius:12px;
+  background:linear-gradient(90deg,#7b2cff,#00aaff);
   color:white;
   font-weight:bold;
-  background:#087cff;
   cursor:pointer;
-  margin-top:12px;
 }
 
-.gameArea{
+#gameScreen{
   display:none;
-  margin:30px auto;
-  max-width:650px;
-  background:#0b1530;
-  border:2px solid #00d9ff;
-  border-radius:20px;
-  padding:20px;
-  text-align:center;
+  position:fixed;
+  inset:0;
+  z-index:50;
+  background:#020208;
 }
 
-.gameArea.active{display:block}
-
-.close{
-  float:right;
-  background:#ff334f;
-  color:white;
-  border:0;
-  padding:7px 13px;
-  border-radius:10px;
-  cursor:pointer;
-}
-
-/* CAR GAME */
-#raceCanvas,#chaseCanvas{
+#gameCanvas{
   width:100%;
-  max-width:400px;
-  height:500px;
-  background:#222;
-  border:2px solid #00eaff;
-  margin:20px auto;
+  height:100%;
   display:block;
 }
 
-.controls{
+#gameHUD{
+  position:absolute;
+  top:12px;
+  left:12px;
+  right:12px;
   display:flex;
-  justify-content:center;
-  gap:15px;
+  justify-content:space-between;
+  pointer-events:none;
+  z-index:60;
 }
 
-.controls button{
-  font-size:25px;
-  padding:12px 25px;
+.hudBox{
+  background:#000b;
+  border:1px solid #00eaff;
+  border-radius:12px;
+  padding:10px 15px;
+}
+
+#closeGame{
+  position:absolute;
+  right:12px;
+  top:60px;
+  z-index:70;
+  padding:10px 15px;
+  border:1px solid #ff44cc;
+  border-radius:12px;
+  background:#100817;
+  color:white;
+  cursor:pointer;
+}
+
+#gameOver{
+  display:none;
+  position:absolute;
+  inset:0;
+  z-index:80;
+  align-items:center;
+  justify-content:center;
+  background:#0009;
+}
+
+.overBox{
+  width:min(400px,90%);
+  padding:30px;
+  text-align:center;
+  background:#09091d;
+  border:2px solid #00eaff;
+  border-radius:22px;
+}
+
+.overBox h2{
+  color:#00eaff;
+  font-size:35px;
+  margin-bottom:12px;
+}
+
+.overBox button{
+  margin-top:15px;
+  width:100%;
+  padding:13px;
   border:0;
   border-radius:12px;
-  cursor:pointer;
+  background:#7b2cff;
+  color:white;
+  font-weight:bold;
 }
 
-/* SHOOTING */
-.targetBox{
-  height:420px;
-  position:relative;
-  margin:20px auto;
-  max-width:500px;
-  background:
-    linear-gradient(#13234a,#071027);
-  border:2px solid #00eaff;
-  overflow:hidden;
-  border-radius:15px;
-}
-
-.target{
+#mobileControls{
+  display:none;
   position:absolute;
-  font-size:55px;
-  cursor:pointer;
-  user-select:none;
+  left:0;
+  right:0;
+  bottom:20px;
+  z-index:65;
+  justify-content:space-between;
+  padding:0 20px;
+  pointer-events:none;
 }
 
-.score{
-  font-size:22px;
-  margin:10px;
-  color:#00eaff;
+.controlGroup{
+  display:flex;
+  gap:12px;
+}
+
+.ctrl{
+  width:65px;
+  height:65px;
+  border-radius:50%;
+  border:2px solid #00eaff;
+  background:#000b;
+  color:white;
+  font-size:25px;
+  pointer-events:auto;
 }
 
 footer{
   text-align:center;
-  padding:25px;
-  background:#0d1732;
-  margin-top:30px;
-  color:#b8c2d8;
+  padding:30px;
+  color:#777;
 }
 
-@media(max-width:600px){
-  .hero h1{font-size:40px}
-  nav{width:100%;text-align:center}
+@media(max-width:700px){
+  .categories{justify-content:flex-start}
+  #mobileControls{display:flex}
 }
 </style>
 </head>
@@ -244,381 +247,1100 @@ footer{
 <body>
 
 <header>
-  <div class="logo">🎮 GAME ZONE</div>
-  <nav>
-    <a href="#home">🏠 Home</a>
-    <a href="#games">🎮 Games</a>
-    <a href="#about">ℹ️ About</a>
-  </nav>
+  <h1>🎮 GAME ZONE 3D</h1>
+  <p>Play • Challenge • Score • Have Fun</p>
+  <input
+    id="search"
+    class="search"
+    placeholder="🔎 Search games..."
+    oninput="searchGames()">
 </header>
 
-<section class="hero" id="home">
-  <h1>GAME ZONE</h1>
-  <p>🚗 Race • 🚓 Chase • 🎯 Shoot • 🎮 Have Fun</p>
-  <button onclick="document.getElementById('games').scrollIntoView()">🎮 Start Playing</button>
-</section>
-
-<section id="games">
-<h2>🔥 Choose Your Game</h2>
-
-<div class="games">
-
-<div class="card">
-  <div class="icon">🚗</div>
-  <h3>Car Racing</h3>
-  <p>Drive your car and avoid the traffic!</p>
-  <button class="play" onclick="openGame('race')">▶ Play Now</button>
+<div class="categories">
+  <button onclick="filterGames('all')">All</button>
+  <button onclick="filterGames('racing')">🏎️ Racing</button>
+  <button onclick="filterGames('action')">🎯 Action</button>
+  <button onclick="filterGames('arcade')">🕹️ Arcade</button>
+  <button onclick="filterGames('sports')">🏀 Sports</button>
+  <button onclick="filterGames('space')">🚀 Space</button>
 </div>
 
-<div class="card">
-  <div class="icon">🚓</div>
-  <h3>Police Chase</h3>
-  <p>Escape the police and survive!</p>
-  <button class="play" onclick="openGame('chase')">▶ Play Now</button>
-</div>
+<main class="container">
+  <div id="gameGrid" class="grid"></div>
+</main>
 
-<div class="card">
-  <div class="icon">🎯</div>
-  <h3>Cartoon Target Shooting</h3>
-  <p>Hit the moving targets and score points!</p>
-  <button class="play" onclick="openGame('shoot')">▶ Play Now</button>
-</div>
-
-<div class="card">
-  <div class="icon">🎯</div>
-  <h3>Click Challenge</h3>
-  <p>Click as many times as possible!</p>
-  <button class="play" onclick="clickGame()">▶ Play Now</button>
-</div>
-
-<div class="card">
-  <div class="icon">🎲</div>
-  <h3>Dice Game</h3>
-  <p>Roll the dice and test your luck.</p>
-  <button class="play" onclick="diceGame()">🎲 Roll Dice</button>
-</div>
-
-<div class="card">
-  <div class="icon">🧠</div>
-  <h3>Number Guess</h3>
-  <p>Guess the secret number from 1 to 10.</p>
-  <button class="play" onclick="guessGame()">▶ Play Now</button>
-</div>
-
-</div>
-</section>
-
-<!-- CAR RACING -->
-<div class="gameArea" id="race">
-<button class="close" onclick="closeGames()">✖</button>
-<h2>🚗 Car Racing</h2>
-<div class="score">Score: <span id="raceScore">0</span></div>
-<canvas id="raceCanvas" width="400" height="500"></canvas>
-<div class="controls">
-<button onclick="moveCar(-1)">⬅️</button>
-<button onclick="startRace()">▶️</button>
-<button onclick="moveCar(1)">➡️</button>
-</div>
-<p>Keyboard: ← → भी इस्तेमाल कर सकते हो</p>
-</div>
-
-<!-- POLICE CHASE -->
-<div class="gameArea" id="chase">
-<button class="close" onclick="closeGames()">✖</button>
-<h2>🚓 Police Chase</h2>
-<div class="score">Score: <span id="chaseScore">0</span></div>
-<canvas id="chaseCanvas" width="400" height="500"></canvas>
-<div class="controls">
-<button onclick="moveChase(-1)">⬅️</button>
-<button onclick="startChase()">▶️</button>
-<button onclick="moveChase(1)">➡️</button>
-</div>
-<p>Police से बचो और ज्यादा से ज्यादा score बनाओ!</p>
-</div>
-
-<!-- SHOOTING -->
-<div class="gameArea" id="shoot">
-<button class="close" onclick="closeGames()">✖</button>
-<h2>🎯 Cartoon Target Shooting</h2>
-<div class="score">Score: <span id="shootScore">0</span></div>
-<div class="targetBox" id="targetBox"></div>
-<button class="play" onclick="startShooting()">🎯 Start Game</button>
-</div>
-
-<footer id="about">
-🎮 Game Zone | Play • Enjoy • Be Champion ❤️
+<footer>
+  🎮 Game Zone 3D — Phase 1
 </footer>
+
+
+<!-- GAME SCREEN -->
+
+<div id="gameScreen">
+
+  <canvas id="gameCanvas"></canvas>
+
+  <div id="gameHUD">
+    <div class="hudBox" id="gameTitle">GAME</div>
+    <div class="hudBox">⭐ <span id="score">0</span></div>
+    <div class="hudBox">❤️ <span id="lives">3</span></div>
+  </div>
+
+  <button id="closeGame" onclick="closeGame()">✕ Exit</button>
+
+  <div id="mobileControls">
+    <div class="controlGroup">
+      <button class="ctrl" id="leftBtn">◀</button>
+      <button class="ctrl" id="rightBtn">▶</button>
+    </div>
+    <div class="controlGroup">
+      <button class="ctrl" id="actionBtn">🔥</button>
+    </div>
+  </div>
+
+  <div id="gameOver">
+    <div class="overBox">
+      <h2>GAME OVER</h2>
+      <p>Score: <b id="finalScore">0</b></p>
+      <button onclick="restartGame()">🔄 Play Again</button>
+      <button onclick="closeGame()">🏠 Main Menu</button>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- THREE.JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
 
 <script>
 
-/* GENERAL */
-function closeGames(){
-  document.querySelectorAll('.gameArea').forEach(x=>x.classList.remove('active'));
+/* =====================================
+   GAME DATABASE
+===================================== */
+
+const games=[
+
+{
+ id:"race",
+ title:"3D Car Racing",
+ icon:"🏎️",
+ category:"racing",
+ desc:"Drive your car, avoid traffic and increase your score."
+},
+
+{
+ id:"police",
+ title:"3D Police Chase",
+ icon:"🚔",
+ category:"racing",
+ desc:"Escape the cartoon police car and survive the chase."
+},
+
+{
+ id:"blaster",
+ title:"Cartoon Blaster",
+ icon:"🎯",
+ category:"action",
+ desc:"Hit moving cartoon targets with colorful energy shots."
+},
+
+{
+ id:"space",
+ title:"3D Space Shooter",
+ icon:"🚀",
+ category:"space",
+ desc:"Fly through space and destroy fictional space targets."
+},
+
+{
+ id:"planet",
+ title:"Planet Runner",
+ icon:"🪐",
+ category:"arcade",
+ desc:"Run around a colorful 3D planet and collect stars."
+},
+
+{
+ id:"hoops",
+ title:"3D Hoops",
+ icon:"🏀",
+ category:"sports",
+ desc:"Shoot the ball toward the hoop and score points."
+},
+
+{
+ id:"blocks",
+ title:"Block Smash",
+ icon:"🧱",
+ category:"arcade",
+ desc:"Smash colorful blocks and build your high score."
+},
+
+{
+ id:"ufo",
+ title:"UFO Dodge",
+ icon:"🛸",
+ category:"arcade",
+ desc:"Dodge incoming UFOs and survive as long as possible."
+},
+
+{
+ id:"target",
+ title:"Target Rush",
+ icon:"🎯",
+ category:"action",
+ desc:"Hit targets quickly before time runs out."
+},
+
+{
+ id:"reaction",
+ title:"Reaction Challenge",
+ icon:"⚡",
+ category:"arcade",
+ desc:"Test your reaction speed and beat your best score."
 }
 
-function openGame(id){
-  closeGames();
-  document.getElementById(id).classList.add('active');
-  document.getElementById(id).scrollIntoView({behavior:"smooth"});
+];
+
+
+/* =====================================
+   GAME LIST
+===================================== */
+
+const grid=document.getElementById("gameGrid");
+
+function renderGames(list=games){
+
+  grid.innerHTML="";
+
+  list.forEach(g=>{
+
+    const card=document.createElement("div");
+
+    card.className="card";
+
+    card.innerHTML=`
+      <div class="icon">${g.icon}</div>
+      <h2>${g.title}</h2>
+      <p>${g.desc}</p>
+      <button class="play"
+        onclick="startGame('${g.id}')">
+        ▶ PLAY NOW
+      </button>
+    `;
+
+    grid.appendChild(card);
+  });
 }
 
-/* CLICK GAME */
-let clicks=0;
+renderGames();
 
-function clickGame(){
-  clicks=0;
-  let go=confirm("🔥 Click Challenge शुरू करें?\nOK दबाकर 10 seconds में जितना हो सके क्लिक करो!");
-  if(!go)return;
 
-  let start=Date.now();
+function filterGames(cat){
 
-  function clicker(){
-    if(Date.now()-start<10000){
-      clicks++;
-      setTimeout(clicker,0);
-    }else{
-      alert("🔥 Time Up!\nYour Score: "+clicks);
-    }
+  if(cat==="all"){
+    renderGames(games);
+    return;
   }
 
-  clicker();
+  renderGames(
+    games.filter(g=>g.category===cat)
+  );
 }
 
-/* DICE */
-function diceGame(){
-  let n=Math.floor(Math.random()*6)+1;
-  alert("🎲 Dice Result: "+n);
+
+function searchGames(){
+
+  const q=
+    document.getElementById("search")
+    .value.toLowerCase();
+
+  renderGames(
+    games.filter(g=>
+      g.title.toLowerCase().includes(q) ||
+      g.category.toLowerCase().includes(q)
+    )
+  );
 }
 
-/* NUMBER GUESS */
-function guessGame(){
-  let secret=Math.floor(Math.random()*10)+1;
-  let guess=prompt("🧠 1 से 10 के बीच number guess करो:");
 
-  if(Number(guess)===secret)
-    alert("🎉 बिल्कुल सही! Number था "+secret);
+/* =====================================
+   THREE.JS CORE
+===================================== */
+
+let scene;
+let camera;
+let renderer;
+let clock;
+
+let currentGame=null;
+let running=false;
+
+let player;
+let objects=[];
+let bullets=[];
+
+let score=0;
+let lives=3;
+
+let keys={};
+
+const screen=
+  document.getElementById("gameScreen");
+
+const canvas=
+  document.getElementById("gameCanvas");
+
+
+/* =====================================
+   INITIALIZE
+===================================== */
+
+function init3D(){
+
+  if(renderer) return;
+
+  scene=new THREE.Scene();
+
+  scene.background=
+    new THREE.Color(0x050515);
+
+  camera=
+    new THREE.PerspectiveCamera(
+      65,
+      innerWidth/innerHeight,
+      .1,
+      1000
+    );
+
+  camera.position.set(0,6,12);
+
+  renderer=
+    new THREE.WebGLRenderer({
+      canvas:canvas,
+      antialias:true
+    });
+
+  renderer.setSize(
+    innerWidth,
+    innerHeight
+  );
+
+  renderer.setPixelRatio(
+    Math.min(devicePixelRatio,2)
+  );
+
+  renderer.shadowMap.enabled=true;
+
+  clock=new THREE.Clock();
+
+  const ambient=
+    new THREE.AmbientLight(
+      0xffffff,
+      .75
+    );
+
+  scene.add(ambient);
+
+  const sun=
+    new THREE.DirectionalLight(
+      0xffffff,
+      1.4
+    );
+
+  sun.position.set(10,15,10);
+
+  scene.add(sun);
+
+  window.addEventListener(
+    "resize",
+    resize3D
+  );
+
+  animate();
+}
+
+
+/* =====================================
+   START GAME
+===================================== */
+
+function startGame(id){
+
+  init3D();
+
+  currentGame=id;
+  running=true;
+
+  score=0;
+  lives=3;
+
+  clearScene();
+
+  screen.style.display="block";
+
+  document.getElementById(
+    "gameOver"
+  ).style.display="none";
+
+  const g=
+    games.find(x=>x.id===id);
+
+  document.getElementById(
+    "gameTitle"
+  ).textContent=
+    g ? g.title : "GAME";
+
+  updateHUD();
+
+  if(id==="race")
+    setupRace();
+
+  else if(id==="police")
+    setupPolice();
+
+  else if(id==="blaster")
+    setupBlaster();
+
   else
-    alert("❌ गलत!\nसही number था: "+secret);
+    setupArcade(id);
 }
 
 
-/* CAR RACING */
-const raceCanvas=document.getElementById("raceCanvas");
-const rc=raceCanvas.getContext("2d");
+/* =====================================
+   CLEAR SCENE
+===================================== */
 
-let carX=175;
-let raceScore=0;
-let raceRunning=false;
-let enemies=[];
+function clearScene(){
 
-function drawRace(){
-  rc.fillStyle="#202020";
-  rc.fillRect(0,0,400,500);
+  objects=[];
+  bullets=[];
 
-  rc.fillStyle="#555";
-  rc.fillRect(60,0,280,500);
+  while(scene.children.length>2){
 
-  rc.strokeStyle="white";
-  rc.setLineDash([25,25]);
-  rc.lineWidth=5;
-  rc.beginPath();
-  rc.moveTo(200,0);
-  rc.lineTo(200,500);
-  rc.stroke();
-  rc.setLineDash([]);
-
-  // player car
-  rc.fillStyle="#00eaff";
-  rc.fillRect(carX,420,50,70);
-  rc.fillStyle="#111";
-  rc.fillRect(carX+8,430,34,20);
-
-  enemies.forEach(e=>{
-    rc.fillStyle="#ff334f";
-    rc.fillRect(e.x,e.y,50,70);
-    rc.fillStyle="#111";
-    rc.fillRect(e.x+8,e.y+10,34,20);
-  });
-}
-
-function startRace(){
-  carX=175;
-  raceScore=0;
-  enemies=[];
-  raceRunning=true;
-  raceLoop();
-}
-
-function raceLoop(){
-  if(!raceRunning)return;
-
-  if(Math.random()<0.035){
-    let lanes=[80,175,270];
-    enemies.push({x:lanes[Math.floor(Math.random()*3)],y:-80});
+    scene.remove(
+      scene.children[
+        scene.children.length-1
+      ]
+    );
   }
 
-  enemies.forEach(e=>e.y+=6);
+  player=null;
+}
 
-  enemies=enemies.filter(e=>{
-    if(e.y>500){
-      raceScore++;
-      document.getElementById("raceScore").textContent=raceScore;
-      return false;
+
+/* =====================================
+   ROAD
+===================================== */
+
+function createRoad(){
+
+  const ground=
+    new THREE.Mesh(
+      new THREE.PlaneGeometry(
+        100,1000
+      ),
+      new THREE.MeshStandardMaterial({
+        color:0x111111
+      })
+    );
+
+  ground.rotation.x=-Math.PI/2;
+
+  ground.position.set(
+    0,-.2,-400
+  );
+
+  scene.add(ground);
+
+
+  const road=
+    new THREE.Mesh(
+      new THREE.PlaneGeometry(
+        12,1000
+      ),
+      new THREE.MeshStandardMaterial({
+        color:0x292929
+      })
+    );
+
+  road.rotation.x=-Math.PI/2;
+
+  road.position.set(
+    0,-.1,-400
+  );
+
+  scene.add(road);
+
+
+  for(let z=10;z>-1000;z-=8){
+
+    const line=
+      new THREE.Mesh(
+        new THREE.BoxGeometry(
+          .15,.03,4
+        ),
+        new THREE.MeshStandardMaterial({
+          color:0xffffff
+        })
+      );
+
+    line.position.set(
+      0,-.08,z
+    );
+
+    scene.add(line);
+
+    objects.push(line);
+  }
+}
+
+
+/* =====================================
+   CAR
+===================================== */
+
+function createCar(color){
+
+  const car=
+    new THREE.Group();
+
+
+  const body=
+    new THREE.Mesh(
+      new THREE.BoxGeometry(
+        2,.6,3.8
+      ),
+      new THREE.MeshStandardMaterial({
+        color:color
+      })
+    );
+
+  body.position.y=.7;
+
+  car.add(body);
+
+
+  const cabin=
+    new THREE.Mesh(
+      new THREE.BoxGeometry(
+        1.45,.65,1.7
+      ),
+      new THREE.MeshStandardMaterial({
+        color:0x111827
+      })
+    );
+
+  cabin.position.set(
+    0,1.25,-.2
+  );
+
+  car.add(cabin);
+
+
+  for(
+    const x of [-1.05,1.05]
+  ){
+
+    for(
+      const z of [-1.15,1.15]
+    ){
+
+      const wheel=
+        new THREE.Mesh(
+          new THREE.CylinderGeometry(
+            .38,.38,.25,16
+          ),
+          new THREE.MeshStandardMaterial({
+            color:0x050505
+          })
+        );
+
+      wheel.rotation.z=
+        Math.PI/2;
+
+      wheel.position.set(
+        x,.4,z
+      );
+
+      car.add(wheel);
     }
-
-    if(e.x<carX+50 &&
-       e.x+50>carX &&
-       e.y<490 &&
-       e.y+70>420){
-      raceRunning=false;
-      alert("💥 Crash!\nRace Score: "+raceScore);
-      return false;
-    }
-
-    return true;
-  });
-
-  drawRace();
-  requestAnimationFrame(raceLoop);
-}
-
-function moveCar(dir){
-  carX+=dir*25;
-  if(carX<70)carX=70;
-  if(carX>280)carX=280;
-  drawRace();
-}
-
-document.addEventListener("keydown",e=>{
-  if(e.key==="ArrowLeft")moveCar(-1);
-  if(e.key==="ArrowRight")moveCar(1);
-});
-
-drawRace();
-
-
-/* POLICE CHASE */
-const chaseCanvas=document.getElementById("chaseCanvas");
-const cc=chaseCanvas.getContext("2d");
-
-let chaseX=175;
-let policeX=100;
-let chaseScore=0;
-let chaseRunning=false;
-
-function drawChase(){
-  cc.fillStyle="#111";
-  cc.fillRect(0,0,400,500);
-
-  cc.fillStyle="#444";
-  cc.fillRect(60,0,280,500);
-
-  cc.strokeStyle="yellow";
-  cc.setLineDash([20,20]);
-  cc.lineWidth=4;
-  cc.beginPath();
-  cc.moveTo(200,0);
-  cc.lineTo(200,500);
-  cc.stroke();
-  cc.setLineDash([]);
-
-  // player
-  cc.fillStyle="#00aaff";
-  cc.fillRect(chaseX,370,50,70);
-
-  // police
-  cc.fillStyle="#222";
-  cc.fillRect(policeX,80,50,70);
-
-  cc.fillStyle="red";
-  cc.fillRect(policeX+5,80,18,12);
-
-  cc.fillStyle="blue";
-  cc.fillRect(policeX+27,80,18,12);
-}
-
-function startChase(){
-  chaseX=175;
-  policeX=100;
-  chaseScore=0;
-  chaseRunning=true;
-  chaseLoop();
-}
-
-function chaseLoop(){
-  if(!chaseRunning)return;
-
-  chaseScore++;
-  document.getElementById("chaseScore").textContent=Math.floor(chaseScore/10);
-
-  if(policeX<chaseX)policeX+=1.1;
-  if(policeX>chaseX)policeX-=1.1;
-
-  if(Math.abs(policeX-chaseX)<35){
-    chaseRunning=false;
-    alert("🚓 Police caught you!\nScore: "+Math.floor(chaseScore/10));
   }
 
-  drawChase();
-  requestAnimationFrame(chaseLoop);
-}
-
-function moveChase(dir){
-  chaseX+=dir*30;
-  if(chaseX<70)chaseX=70;
-  if(chaseX>280)chaseX=280;
-  drawChase();
+  return car;
 }
 
 
-/* TARGET SHOOTING */
-let shootScore=0;
-let shootTimer;
+/* =====================================
+   RACING
+===================================== */
 
-function startShooting(){
-  shootScore=0;
-  document.getElementById("shootScore").textContent=0;
+function setupRace(){
 
-  let box=document.getElementById("targetBox");
-  box.innerHTML="";
+  createRoad();
 
-  clearInterval(shootTimer);
+  player=
+    createCar(0x00eaff);
 
-  let time=20;
+  player.position.set(
+    0,0,5
+  );
 
-  shootTimer=setInterval(()=>{
-    if(time<=0){
-      clearInterval(shootTimer);
-      box.innerHTML="<h2 style='padding-top:170px'>🎉 GAME OVER!</h2>";
-      alert("🎯 Game Over!\nYour Score: "+shootScore);
+  scene.add(player);
+
+
+  for(let i=0;i<5;i++){
+
+    const enemy=
+      createCar(
+        [0xff3333,
+         0xffff00,
+         0xff00ff,
+         0x44ff44]
+        [Math.floor(Math.random()*4)]
+      );
+
+    enemy.position.set(
+      [-4,0,4][
+        Math.floor(Math.random()*3)
+      ],
+      0,
+      -30-i*35
+    );
+
+    scene.add(enemy);
+
+    objects.push(enemy);
+  }
+
+  camera.position.set(
+    0,5.5,11
+  );
+}
+
+
+/* =====================================
+   POLICE CHASE
+===================================== */
+
+function setupPolice(){
+
+  createRoad();
+
+  player=
+    createCar(0x00aaff);
+
+  player.position.set(
+    0,0,3
+  );
+
+  scene.add(player);
+
+
+  const police=
+    createCar(0xffffff);
+
+  police.position.set(
+    0,0,15
+  );
+
+  police.userData.police=true;
+
+  scene.add(police);
+
+  objects.push(police);
+
+  camera.position.set(
+    0,5.5,11
+  );
+}
+
+
+/* =====================================
+   BLASTER
+===================================== */
+
+function setupBlaster(){
+
+  const floor=
+    new THREE.Mesh(
+      new THREE.BoxGeometry(
+        35,.5,35
+      ),
+      new THREE.MeshStandardMaterial({
+        color:0x211c45
+      })
+    );
+
+  floor.position.y=-.3;
+
+  scene.add(floor);
+
+
+  player=
+    new THREE.Mesh(
+      new THREE.CylinderGeometry(
+        1,1,2,20
+      ),
+      new THREE.MeshStandardMaterial({
+        color:0x00eaff
+      })
+    );
+
+  player.position.set(
+    0,1,7
+  );
+
+  scene.add(player);
+
+
+  for(let i=0;i<7;i++)
+    spawnTarget();
+
+
+  camera.position.set(
+    0,7,14
+  );
+}
+
+
+/* =====================================
+   TARGET
+===================================== */
+
+function spawnTarget(){
+
+  const target=
+    new THREE.Group();
+
+
+  const body=
+    new THREE.Mesh(
+      new THREE.SphereGeometry(
+        1,20,20
+      ),
+      new THREE.MeshStandardMaterial({
+        color:
+          [0xff3366,
+           0xffff00,
+           0x00ff99,
+           0xff8800,
+           0xaa44ff]
+          [Math.floor(Math.random()*5)]
+      })
+    );
+
+  target.add(body);
+
+
+  const eyeMat=
+    new THREE.MeshStandardMaterial({
+      color:0xffffff
+    });
+
+
+  for(
+    const x of [-.35,.35]
+  ){
+
+    const eye=
+      new THREE.Mesh(
+        new THREE.SphereGeometry(
+          .16,10,10
+        ),
+        eyeMat
+      );
+
+    eye.position.set(
+      x,.25,.9
+    );
+
+    target.add(eye);
+  }
+
+
+  target.position.set(
+    THREE.MathUtils.randFloat(-8,8),
+    THREE.MathUtils.randFloat(1,6),
+    THREE.MathUtils.randFloat(-12,1)
+  );
+
+  scene.add(target);
+
+  objects.push(target);
+}
+
+
+/* =====================================
+   OTHER 3D GAMES
+===================================== */
+
+function setupArcade(id){
+
+  const floor=
+    new THREE.Mesh(
+      new THREE.BoxGeometry(
+        40,.5,40
+      ),
+      new THREE.MeshStandardMaterial({
+        color:
+          id==="space"
+          ?0x050525
+          :0x202040
+      })
+    );
+
+  floor.position.y=-.5;
+
+  scene.add(floor);
+
+
+  player=
+    new THREE.Mesh(
+      new THREE.SphereGeometry(
+        1,20,20
+      ),
+      new THREE.MeshStandardMaterial({
+        color:0x00eaff
+      })
+    );
+
+  player.position.set(
+    0,1,5
+  );
+
+  scene.add(player);
+
+
+  for(let i=0;i<8;i++){
+
+    const obj=
+      new THREE.Mesh(
+        new THREE.BoxGeometry(
+          1.5,1.5,1.5
+        ),
+        new THREE.MeshStandardMaterial({
+          color:
+            Math.random()*0xffffff
+        })
+      );
+
+    obj.position.set(
+      THREE.MathUtils.randFloat(-10,10),
+      THREE.MathUtils.randFloat(1,5),
+      THREE.MathUtils.randFloat(-15,3)
+    );
+
+    scene.add(obj);
+
+    objects.push(obj);
+  }
+
+  camera.position.set(
+    0,6,12
+  );
+}
+
+
+/* =====================================
+   SHOOT
+===================================== */
+
+function shoot(){
+
+  if(
+    !running ||
+    currentGame!=="blaster"
+  ) return;
+
+
+  const bullet=
+    new THREE.Mesh(
+      new THREE.SphereGeometry(
+        .16,10,10
+      ),
+      new THREE.MeshStandardMaterial({
+        color:0xffff00
+      })
+    );
+
+  bullet.position.copy(
+    player.position
+  );
+
+  bullet.position.y+=1;
+
+  bullet.userData.velocity=
+    new THREE.Vector3(
+      0,0,-20
+    );
+
+  scene.add(bullet);
+
+  bullets.push(bullet);
+}
+
+
+/* =====================================
+   UPDATE RACING
+===================================== */
+
+function updateRace(dt){
+
+  let move=0;
+
+  if(keys["arrowleft"]||keys["a"])
+    move=-1;
+
+  if(keys["arrowright"]||keys["d"])
+    move=1;
+
+
+  player.position.x+=
+    move*7*dt;
+
+  player.position.x=
+    THREE.MathUtils.clamp(
+      player.position.x,
+      -4.5,4.5
+    );
+
+
+  objects.forEach(obj=>{
+
+    if(obj.userData.police)
+      return;
+
+    if(obj.position.z===undefined)
+      return;
+
+    obj.position.z+=
+      12*dt;
+
+
+    if(obj.position.z>12){
+
+      obj.position.z=
+        -100-Math.random()*80;
+
+      obj.position.x=
+        [-4,0,4][
+          Math.floor(Math.random()*3)
+        ];
+
+      score+=10;
+
+      updateHUD();
+    }
+
+
+    if(
+      player &&
+      player.position.distanceTo(
+        obj.position
+      )<2
+    ){
+
+      obj.position.z=-100;
+
+      lives--;
+
+      updateHUD();
+
+      if(lives<=0)
+        gameOver();
+    }
+  });
+
+
+  camera.position.x +=
+    (player.position.x-
+     camera.position.x)*.08;
+
+  camera.lookAt(
+    player.position.x,
+    0,
+    -15
+  );
+
+  score+=dt*2;
+
+  updateHUD();
+}
+
+
+/* =====================================
+   UPDATE POLICE
+===================================== */
+
+function updatePolice(dt){
+
+  let move=0;
+
+  if(keys["arrowleft"]||keys["a"])
+    move=-1;
+
+  if(keys["arrowright"]||keys["d"])
+    move=1;
+
+
+  player.position.x+=
+    move*7*dt;
+
+  player.position.x=
+    THREE.MathUtils.clamp(
+      player.position.x,
+      -4.5,4.5
+    );
+
+
+  objects.forEach(obj=>{
+
+    if(!obj.userData.police)
+      return;
+
+
+    obj.position.x +=
+      (player.position.x-
+       obj.position.x)
+      *dt*.7;
+
+
+    obj.position.z -=
+      dt*2;
+
+
+    if(obj.position.z<6){
+
+      lives--;
+
+      obj.position.z=12;
+
+      updateHUD();
+
+      if(lives<=0)
+        gameOver();
+    }
+  });
+
+
+  score+=dt*3;
+
+  updateHUD();
+
+
+  camera.position.x +=
+    (player.position.x-
+     camera.position.x)*.08;
+
+  camera.lookAt(
+    player.position.x,
+    0,
+    -10
+  );
+}
+
+
+/* =====================================
+   UPDATE BLASTER
+===================================== */
+
+function updateBlaster(dt){
+
+  if(keys["arrowleft"]||keys["a"])
+    player.position.x-=8*dt;
+
+  if(keys["arrowright"]||keys["d"])
+    player.position.x+=8*dt;
+
+
+  player.position.x=
+    THREE.MathUtils.clamp(
+      player.position.x,
+      -10,10
+    );
+
+
+  bullets.forEach((b,i)=>{
+
+    b.position.z+=
+      b.userData.velocity.z*dt;
+
+
+    if(b.position.z<-30){
+
+      scene.remove(b);
+
+      bullets.splice(i,1);
+
       return;
     }
 
-    time--;
 
-    let target=document.createElement("div");
-    target.className="target";
-    target.textContent="🎯";
+    objects.forEach((target,j)=>{
 
-    target.style.left=Math.random()*85+"%";
-    target.style.top=Math.random()*85+"%";
+      if(
+        !target.userData.target
+      ) return;
 
-    target.onclick=function(){
-      shootScore++;
-      document.getElementById("shootScore").textContent=shootScore;
-      this.remove();
-    };
 
-    box.appendChild(target);
+      if(
+        b.position.distanceTo(
+          target.position
+        )<1.4
+      ){
 
-    setTimeout(()=>{
-      if(target.parentNode)target.remove();
-    },900);
+        scene.remove(b);
+        scene.remove(target);
 
-  },700);
+        bullets.splice(i,1);
+        objects.splice(j,1);
+
+        score+=25;
+
+        updateHUD();
+
+        spawnTarget();
+      }
+    });
+  });
+
+
+  objects.forEach(obj=>{
+
+    if(obj.userData.target){
+
+      obj.position.x +=
+        Math.sin(
+          Date.now()*.002
+        )*.01;
+
+      obj.rotation.y+=
+        dt*2;
+    }
+  });
+
+
+  camera.lookAt(
+    player.position.x,
+    1,
+    0
+  );
 }
 
-</script>
 
-</body>
-  </html>
+/* =====================================
+   MAKE TARGETS IDENTIFIABLE
+===================================== */
+
+const oldSpawnTarget=spawnTarget;
+
+spawnTarget=function(){
+
+  const before=
+    objects.length;
+
+  oldSpawnTa
